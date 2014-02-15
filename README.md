@@ -1,3 +1,0 @@
-LemmingsEffect
-==============
-dadataradada
