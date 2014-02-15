@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Browser" id="12" x="6" y="-56" width="1059" height="625" text="Browser&#xA;http://www.lehenimi.ee/" measuredWidth="1059" measuredHeight="625"/>
+  <widgets xsi:type="model:Panel" id="7" x="16" y="8" width="1041" measuredWidth="1041" measuredHeight="100"/>
+  <widgets xsi:type="model:Placeholder" id="6" x="48" y="41" width="81" height="57" text="Logo" measuredWidth="81" measuredHeight="57"/>
+  <widgets xsi:type="model:Placeholder" id="9" x="480" y="18" width="561" height="80" text="Väga palju reklaami" measuredWidth="561" measuredHeight="80"/>
+  <widgets xsi:type="model:ButtonBar" id="10" x="16" y="120" width="753" text="Isiklik pealeht, Kõigi pealeht, ilm, eesti uudised, välisuudised, enamvähem eelnevalt otsustatud uudiste grupid" measuredWidth="753" measuredHeight="25" selection="0">
+    <font/>
+    <items x="0" y="0" width="103" height="25" text="Isiklik pealeht"/>
+    <items x="103" y="0" width="99" height="25" text="Kõigi pealeht"/>
+    <items x="202" y="0" width="40" height="25" text="ilm"/>
+    <items x="242" y="0" width="102" height="25" text="eesti uudised"/>
+    <items x="344" y="0" width="97" height="25" text="välisuudised"/>
+    <items x="441" y="0" width="312" height="25" text="enamvähem eelnevalt otsustatud uudiste grupid"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="11" x="136" y="41" text="Lehe nimi" measuredWidth="194" measuredHeight="57">
+    <font size="43px"/>
+  </widgets>
+  <widgets xsi:type="model:ButtonBar" id="13" x="791" y="120" text="kasutaja/guestID, seaded, sisene/välju" measuredWidth="266" measuredHeight="25" selection="0">
+    <font/>
+    <items x="0" y="0" width="115" height="25" text="kasutaja/guestID"/>
+    <items x="115" y="0" width="63" height="25" text="seaded"/>
+    <items x="178" y="0" width="88" height="25" text="sisene/välju"/>
+  </widgets>
+  <widgets xsi:type="model:Panel" id="15" x="16" y="160" width="753" height="385" measuredWidth="753" measuredHeight="385"/>
+  <widgets xsi:type="model:TextArea" id="20" x="791" y="160" width="264" height="137" text="Ilm (valikuline)&#xA;Hetkeilm, prognoos, erinevad source võimalused nt. emhi, ilm.ee" measuredWidth="264" measuredHeight="137">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextArea" id="21" x="791" y="304" width="264" height="241" text="Kalendri võimalus (default on maas)" measuredWidth="264" measuredHeight="241">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextArea" id="24" x="136" y="177" width="617" height="88" text="_________________________________________________*Klikatud Uudise Pealkiri*&#xA;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " measuredWidth="617" measuredHeight="88">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Placeholder" id="26" x="26" y="177" width="95" height="88" text="Uudise pilt" measuredWidth="95" measuredHeight="88"/>
+  <widgets xsi:type="model:Link" id="27" x="592" y="240" text="Loe edasi asukoht.ee-st" measuredWidth="136" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Link" id="28" x="480" y="240" text="sarnasted uudised" measuredWidth="107" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Placeholder" id="30" x="144" y="177" width="97" height="24" text="logo (asukoha)" measuredWidth="97" measuredHeight="24"/>
+  <widgets xsi:type="model:TextArea" id="31" x="136" y="272" width="617" height="25" text="_________________________________________________*Kinnine uudis*" measuredWidth="617" measuredHeight="25">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Placeholder" id="32" x="26" y="272" width="95" height="25" text="Uudise pilt" measuredWidth="95" measuredHeight="25"/>
+  <widgets xsi:type="model:Placeholder" id="33" x="144" y="273" width="97" height="24" text="logo (asukoha)" measuredWidth="97" measuredHeight="24"/>
+  <widgets xsi:type="model:Link" id="34" x="592" y="274" text="Loe edasi asukoht.ee-st" measuredWidth="136" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Link" id="35" x="480" y="274" text="sarnasted uudised" measuredWidth="107" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextArea" id="36" x="136" y="304" width="617" height="25" text="_________________________________________________*Kinnine uudis*" measuredWidth="617" measuredHeight="25">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Placeholder" id="37" x="26" y="304" width="95" height="25" text="Uudise pilt" measuredWidth="95" measuredHeight="25"/>
+  <widgets xsi:type="model:Placeholder" id="38" x="144" y="305" width="97" height="24" text="logo (asukoha)" measuredWidth="97" measuredHeight="24"/>
+  <widgets xsi:type="model:Link" id="39" x="592" y="306" text="Loe edasi asukoht.ee-st" measuredWidth="136" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Link" id="40" x="480" y="306" text="sarnasted uudised" measuredWidth="107" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="41" x="264" y="507" text="scrollides jääb lehte laadima" measuredWidth="176" measuredHeight="28" annotation="true">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>
