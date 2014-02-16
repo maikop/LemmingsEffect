@@ -10,3 +10,6 @@
 -reklaam paremale vasakule
 -toimetaja funktsioon on grupeerida sarnaseid uudiseid, lisada oma uudseid.
 -kommentaarium oma uudistele
+
+
+-saab hinnata
