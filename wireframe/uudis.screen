@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Browser" id="1" x="10" y="10" width="1399" height="743" text="Browser&#xA;http://www.lehenimi.ee" measuredWidth="1399" measuredHeight="743"/>
+  <widgets xsi:type="model:Panel" id="3" x="10" y="146" width="1387" measuredWidth="1387" measuredHeight="100" background="#ff9900" alpha="144"/>
+  <widgets xsi:type="model:Placeholder" id="4" x="10" y="62" width="1387" height="85" text="Väga palju reklaami" measuredWidth="1387" measuredHeight="85"/>
+  <widgets xsi:type="model:Placeholder" id="5" x="424" y="167" width="81" height="57" text="Logo" measuredWidth="81" measuredHeight="57"/>
+  <widgets xsi:type="model:Label" id="6" x="520" y="162" text="Lehe nimi" measuredWidth="187" measuredHeight="67">
+    <font size="43px"/>
+  </widgets>
+  <widgets xsi:type="model:TextArea" id="7" x="726" y="167" width="208" height="50" text="Ilm (valikuline)&#xA;Hetkeilm, prognoos, erinevad source võimalused nt. emhi, ilm.ee" measuredWidth="208" measuredHeight="50" background="#ff9900" alpha="5">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Tabs" id="12" x="544" y="223" width="273" text="Tagasi, Jaga, +, -, Samal teemal" measuredWidth="273" measuredHeight="27" selection="0">
+    <items x="1" y="0" width="55" height="27" text="Tagasi"/>
+    <items x="56" y="0" width="44" height="27" text="Jaga"/>
+    <items x="100" y="0" width="29" height="27" text="+"/>
+    <items x="129" y="0" width="26" height="27" text="-"/>
+    <items x="155" y="0" width="92" height="27" text="Samal teemal"/>
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="13" x="1324" y="204" text="Logi sisse" measuredWidth="61" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="14" x="1248" y="204" text="Vali raadio" measuredWidth="66" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Placeholder" id="16" x="504" y="280" width="505" height="441" measuredWidth="505" measuredHeight="441"/>
+  <widgets xsi:type="model:Label" id="17" x="687" y="336" text="UUDIS" measuredWidth="130" measuredHeight="67">
+    <font size="43px"/>
+  </widgets>
+  <widgets xsi:type="model:DateField" id="18" x="243" y="10" text="  /  /  " measuredWidth="58" measuredHeight="23"/>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>
