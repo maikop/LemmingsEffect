@@ -1,6 +1,5 @@
 html {
 	height:100%;
-	max-width: 100%;
 	padding:0;
 	margin:0;
 }
@@ -8,7 +7,6 @@ html {
 body {
 	width:100%;
 	height:100%;
-	max-width: 100%;
 	padding:0;
 	margin:0;
 	background-color:#D0D0D0;
@@ -17,8 +15,8 @@ body {
 #Header {
 	z-index:1;
 	width:100%;
-	height:220px;
-	position: fixed;
+	height:196px;
+	position: absolute;
 	display:block;
 	top:0px;
 	left:0px;
@@ -27,25 +25,38 @@ body {
 #Title {
 	float:left;
 	width:220px;
-	height:200px;
+	height:186px;
 	position:absolute;
 	top:10px;
 	left:60px;
 	display:block;
 	background-color:#ffca80;
 }
-#HeaderCenterMenu {
-	width:80%;
+#HeaderMenu{
+	z-index:1;
+	width:100%;
 	padding:0px;
 	margin:auto;
 	position:absolute;
-	top:180px;
-	left:20px;
+	top:170px;
+	left:0px;
+	display:block;
+	background-color:#ffca80;
+}
+
+#HeaderCenterMenu {
+	width:100%;
+	padding:0px;
+	margin:auto;
+	position:absolute;
+	top:0px;
+	left:0px;
 	background-color:#ffca80;
 }
 #HeaderCenterMenu ul {
 	padding:0; 
 	margin:0; 
+	margin-left:20px;
 	list-style:none; 
 	border:0; 
 	float:left;
@@ -56,24 +67,14 @@ body {
 	padding:4px; 
 	border:0;
 }
-
-
-
-
-
-
-
-
-
-
-
 #HeaderRightMenu {
 	overflow:hidden;
 	padding:0px;
 	margin:auto;
+	margin-right:20px;
 	position:absolute;
-	top:180px;
-	right:20px;
+	top:0px;
+	right:0px;
 	background-color:#ffca80;
 }
 #HeaderRightMenu ul {
@@ -92,7 +93,7 @@ body {
 
 #Content {
 	position:absolute;
-	top:220px;
+	top:196px;
 	width:100%;
 	z-index:0;
 	padding:0;
@@ -105,7 +106,7 @@ body {
 	padding:0px;
 	margin:auto;
 	position:absolute;
-	top:20px;
+	top:10px;
 	left:20px;	
 }
 #ContentMenu ul {
@@ -123,7 +124,7 @@ body {
 }
 #Headlines {
 	position:absolute;
-	top:60px;
+	top:36px;
 	left:0px;
 	padding:0;
 	margin:0;
