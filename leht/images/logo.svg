@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg id="svglogo"
   xmlns="http://www.w3.org/2000/svg"
  xmlns:xlink="http://www.w3.org/1999/xlink" 
  width="128" 
  height="128">
   
-  <polygon id="poly1" points="96,105 15,1 17,123 70,78" style="fill:#FF00FF;" />
-  <polygon id="poly2" points="96,105 15,1 17,123 70,78" style="fill:#4bcf4c;" />
-  <polygon id="poly3" points="96,105 15,1 17,123 70,78" style="fill:lime;" />
-  <polygon id="poly4" points="96,105 15,1 17,123 70,78" style="fill:lime;" />
-  <polygon id="poly5" points="96,105 15,1 17,123 70,78" style="fill:lime;" />
+  <polygon id="poly1" points="92,10 47,59 112,23" style="fill:#c6f5f2; fill-opacity:0.8413103457084137;" />
+  <polygon id="poly2" points="81,71 76,3 112,65" style="fill:#629461; fill-opacity:0.7794481074363162;" />
+  <polygon id="poly3" points="113,80 118,61 64,36" style="fill:#6cba2c; fill-opacity:0.39658503279720514;" />
+  <polygon id="poly4" points="69,2 101,13 128,55 102,89" style="fill:#ecd747; fill-opacity:0.5427047422652014;" />
+  <polygon id="poly5" points="24,113 5,77 60,37 92,7" style="fill:#a19fe1; fill-opacity:0.8463194820807025;" />
   <script type="text/javascript"><![CDATA[
     function funpolygon(n, polyid){
         var tipud="";

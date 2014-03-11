@@ -4,45 +4,14 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Uudised</title>
 		<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
 	</head>
 	<body>
 		<div id="Header">
 			<div id="Title">
-				<svg id="svglogo"
-				     xmlns="http://www.w3.org/2000/svg"
-				     xmlns:xlink="http://www.w3.org/1999/xlink" 
-				     width="128" 
-				     height="128">
-					<polygon id="poly1" points="96,105 15,1 17,123 70,78" style="fill:#FF00FF;" />
-					<polygon id="poly2" points="96,105 15,1 17,123 70,78" style="fill:#4bcf4c;" />
-					<polygon id="poly3" points="96,105 15,1 17,123 70,78" style="fill:lime;" />
-					<polygon id="poly4" points="96,105 15,1 17,123 70,78" style="fill:lime;" />
-					<polygon id="poly5" points="96,105 15,1 17,123 70,78" style="fill:lime;" />
-					<script type="text/javascript"><![CDATA[
-					  function funpolygon(n, polyid){
-					    var tipud="";
-					    var varv="fill:#";
-					    for (var i=0; i<n;i++){
-					      var tipud= tipud+Math.floor((Math.random()*128)+1)+",";
-					      var tipud= tipud+Math.floor((Math.random()*128)+1)+" ";
-					    }
-					    for (var i=0; i<6;i++){
-					      var lisa= (Math.floor((Math.random()*16)));
-					      var varv=varv+(lisa.toString(16));
-					    }
-					    varv=varv+"; fill-opacity:"+Math.random()+";";
-					    var polyg = document.getElementById(polyid);
-					    polyg.setAttribute('points',tipud);
-					    polyg.setAttribute('style',varv);
-					}
-					funpolygon(3, "poly1");
-					funpolygon(3, "poly2");
-					funpolygon(3, "poly3");
-					funpolygon(4, "poly4");
-					funpolygon(4, "poly5");
-					]]></script>
-  
-				</svg>
+				<object data="images/logo.svg" type="image/svg+xml">
+				    <img src="images/logo.png" />
+				</object>
 				Uudised
 			</div>
 			<div id="HeaderCenterMenu">
