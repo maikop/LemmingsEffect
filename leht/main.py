@@ -5,8 +5,9 @@ import os
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import template
+import sqlite3
 
-class MainHandler(webapp.RequestHandler):
+class MainPage(webapp.RequestHandler):
   def get (self, q):
     if q is None:
       q = 'index.html'
@@ -15,9 +16,5 @@ class MainHandler(webapp.RequestHandler):
     self.response.headers ['Content-Type'] = 'text/html'
     self.response.out.write (template.render (path, {}))
 
-def main ():
-  application = webapp.WSGIApplication ([('/(.*html)?', MainHandler)], debug=True)
-  util.run_wsgi_app (application)
-
-if __name__ == '__main__':
-  main ()
+app = webapp.WSGIApplication([('/(.*html)?', MainPage)], debug = True)
+util.run_wsgi_app (app)
