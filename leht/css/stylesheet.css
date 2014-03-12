@@ -24,11 +24,11 @@ body {
 }
 #Title {
 	float:left;
-	width:128px;
-	height:186px;
+	width:292px;
+	height:130x;
 	position:absolute;
 	top:10px;
-	left:60px;
+	left:20px;
 	display:block;
 	background-color:#ffca80;
 }
