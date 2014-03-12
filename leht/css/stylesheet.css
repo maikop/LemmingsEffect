@@ -15,7 +15,7 @@ body {
 #Header {
 	z-index:1;
 	width:100%;
-	height:196px;
+	height:156px;
 	position: absolute;
 	display:block;
 	top:0px;
@@ -34,37 +34,52 @@ body {
 }
 #HeaderMenu{
 	width:100%;
-	height:27px;
+	height:40px;
 	padding:0px;
 	margin:auto;
 	position:absolute;
-	top:170px;
+	top:136px;
 	left:0px;
 	display:block;
 	background-color:#ffca80;
 	box-shadow:0px 6px 4px #777777;
 	
 }
-
-#HeaderCenterMenu {
-	width:100%;
+#movingLogo {
+	z-index:1;
 	padding:0px;
+	padding-left:20px;
 	margin:auto;
 	position:absolute;
 	top:0px;
 	left:0px;
 }
+#HeaderCenterMenu {
+	z-index:2;
+	width:50%;
+	max-width:100%;
+	padding:0px;
+	margin:auto;
+	position:absolute;
+	height:40px;
+	bottom:0px;
+	left:0px;
+	
+}
 #HeaderCenterMenu ul {
+	height:40px;
+	margin:0px;
 	padding:0; 
-	margin:0; 
 	margin-left:20px;
 	list-style:none; 
 	border:0; 
 	float:left;
+	background-color:#ffca80;
 }
-#HeaderCenterMenu ul li { 
+#HeaderCenterMenu ul li {
 	float:left; 
 	margin:0; 
+	margin-top:10px;
 	padding:4px; 
 	border:0;
 }
@@ -74,7 +89,7 @@ body {
 	margin:auto;
 	margin-right:20px;
 	position:absolute;
-	top:0px;
+	top:10px;
 	right:0px;
 }
 #HeaderRightMenu ul {
@@ -93,7 +108,7 @@ body {
 
 #Content {
 	position:absolute;
-	top:196px;
+	top:176px;
 	width:100%;
 	z-index:0;
 	padding:0;
