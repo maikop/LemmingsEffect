@@ -1,6 +1,6 @@
 console.log("starting");
 var port = process.env.PORT || 5000;
-process.env.PWD = process.cwd()
+process.env.PWD = process.cwd();
 
 var express = require("express");
 var app = express();
