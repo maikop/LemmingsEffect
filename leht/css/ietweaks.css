@@ -1,0 +1,5 @@
+/* IE6-8 Box-Shadow alternatiiv */
+#HeaderMenu {
+	zoom: 1;
+	filter:progid:DXImageTransform.Microsoft.Shadow(Color=#777777, Strength=10, Direction=180);
+}
