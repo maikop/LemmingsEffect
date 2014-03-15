@@ -14,62 +14,112 @@ body {
 svg { 
 	display:block; 
 }
+.menu{
+      height: 40px;
+      position: relative; 
+}
 
+.menu ul {  
+    padding: 0;  
+    margin: 0 auto;
+    height: 40px;  
+}
+.menu li {  
+    display: inline;  
+    float: left;
 
+}
+.menu a{
+        line-height: 38px;
+	display: inline-block;
+	text-decoration: none;
+}
+.menu li a { 
+    padding-left:8px;
+    padding-right:8px;
+    border-right: 2px solid #aaaaaa;
+    border-top:2px solid #aaaaaa;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;  
+    -webkit-box-sizing:border-box;  
+}
+.menu li:first-child a {  
+    border-left:2px solid #aaaaaa;
+}  
+.menu a:hover,
+.menu a:active {  
+        background-color: #aaaaaa;  
+}  
+
+.clearfix:before,  
+.clearfix:after {  
+        content: " ";  
+        display: table;  
+}  
+.clearfix:after {  
+        clear: both;  
+}
+#headerMenuButton {
+	display: none;
+}
 #Header {
 	z-index:1;
 	width:100%;
 	height:176px;
 	position: absolute;
-	display:block;
 	top:0px;
 	left:0px;
-	padding:0;
-	margin:0;
 	background-color:#ffca80;
 }
 #Title {
 	float:left;
 	width:292px;
 	height:130px;
-	position:absolute;
+	position:relative;
 	top:10px;
 	left:20px;
 }
 #HeaderMenu{
+	z-index:1;
 	width:100%;
 	height:40px;
-	padding:0px;
-	margin:0px;
-	position:absolute;
-	top:136px;
-	left:0px;
-	display:block;
+	position:relative;
+	top:150px;
 	background-color:#ffca80;
+	/*IE-9 kuni 11 box shadow fix*/
+	border-collapse: separate;
 	box-shadow:0px 6px 4px #777777;	
 	/*Väldib animatsiooni ajal scrollbari ilmumist */
 	overflow: hidden;
-}
+	background-color:#ffca80;
 
+}
+#HeaderCenterMenu ul {
+	margin-left:20px;
+	background-color:#ffca80;
+}
 #movingLogo {
 	z-index:1;
 	padding:0px;
 	margin:0px;
-	position:absolute;
+	position:relative;
 	top:0px;
-	left:20px;
+	margin-left:20px;
 }
 #HeaderCenterMenu {
+	position:relative;
+	top:-36px;
 	z-index:2;
 	margin:auto;
 	padding:0px;
-	padding-right: 218px;
+	padding-right: 250px;
 	width: 100%;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+	overflow-x: visible;
 	/*Hilisemaks tabide kasutamiseks*/
-	overflow: hidden;
+	/*overflow: hidden;
 	/*
 	https://www.w3.org/Bugs/Public/show_bug.cgi?id=18913
 	CSS validator bug, calc kasutusel hilisemaks tabide kasutusvõimaluseks
@@ -81,54 +131,29 @@ svg {
 	
 	box-sizing: border-box; on parem support (ie8, firefox 1.0, chrome 1.0, opera 7.0, safari 3.0, android 2.1, firefox mobile, ie phone 7, safari mobile, opera mobile
 	*/
-	position:absolute;
-	height:40px;
-	bottom:0px;
-	left:0px;
-}
-#HeaderCenterMenu ul {
-	height:40px;
-	margin:0px;
-	padding:0; 
-	margin-left:20px;
-	list-style:none; 
-	border:0; 
-	float:left;
-	background-color:#ffca80;
-}
-#HeaderCenterMenu ul li {
-	float:left; 
-	margin:0; 
-	margin-top:10px;
-	padding:4px; 
-	border:0;
-}
-#HeaderRightMenu {
-	overflow:hidden;
-	padding:0px;
-	margin:auto;
-	margin-right:20px;
-	position:absolute;
-	top:10px;
-	right:0px;
-}
-#HeaderRightMenu ul {
-	padding:0; 
-	margin:0; 
-	list-style:none; 
-	border:0; 
-	float:left;
-}
-#HeaderRightMenu ul li { 
-	float:left; 
-	margin:0; 
-	padding:4px; 
-	border:0;
 }
 
+#HeaderRightMenu {
+	z-index:2;
+	right:20px;
+	position:absolute;
+	float:right;
+	top:0; /* liigutab nähtavale*/
+}
+#ContentMenu {
+	position:relative;
+	padding:0px;
+	padding-left:20px;
+	padding-right:20px;
+	margin:auto;
+	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
 #Content {
 	position:absolute;
-	top:176px;
+	top:200px;
 	width:100%;
 	z-index:0;
 	padding:0;
@@ -136,51 +161,93 @@ svg {
 	max-width: 100%;
 	
 }
-
-#ContentMenu {
-	padding:0px;
-	padding-left:20px;
-	margin:auto;
-	width: 100%;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	overflow: hidden;
-	height:32px;
-	/*Ainult kuniks responsive design kasutusele võetud*/
-	overflow: hidden;
-	position:absolute;
-	top:10px;
-	left:0px;
-}
-#ContentMenu ul {
-	padding:0px; 
-	margin:0px; 
-	list-style:none; 
-	border:0; 
-	float:left;
-}
-#ContentMenu ul li { 
-	float:left; 
-	margin:0px; 
-	padding:4px; 
-	border:0px;
-}
 #Headlines {
-	position:absolute;
-	top:36px;
-	left:0px;
-	padding:0;
-	margin:0;
+	display: inline-block;
+	position:relative;
 	width:100%;
   
 }
 
 .News {
+	position:relative;
 	background-color:#aaaaaa;  
 	height:20px;
-	margin:5px;
+	margin-bottom:5px;
 	margin-left:20px;
 	margin-right:20px;
 	padding:0;
+}
+@media screen and (max-width: 600px) {
+	#HeaderCenterMenu{
+		padding-right: 120px;
+		width:100%;  
+	}
+
+	#HeaderCenterMenu li {
+		display: block;
+		float:none;
+		width:100%;
+		border:2px solid #aaaaaa;
+		border-top:0px solid #aaaaaa;
+		background:#faca80;
+	}
+	#HeaderCenterMenu li:first-child{
+		border-top:2px solid #aaaaaa;
+	}
+	#HeaderCenterMenu ul {
+		width:100%;
+		display: none;
+		height:300px;
+		box-shadow:10px 6px 4px #777777;
+		overflow-y:scroll;
+		overflow-x:hidden;
+	}
+	.menu a#headerMenuButton{
+		display:block;
+		background-color: #ffca80;
+		width:120px;
+		margin-left:20px;
+		text-align:center;
+		border: 2px solid #aaaaaa;
+		border-bottom: 0px solid #aaaaaa;
+	}
+	.menu a#headerMenuButton:after{
+		content:" ";
+		width:30px;
+		height:30px;
+		display: inline-block;
+		position:absolute;
+		right:15px;
+		top:10px;
+	}
+	#HeaderCenterMenu a {
+		border:0;
+	}
+#HeaderMenu{
+overflow: visible;
+  
+}
+  #ContentMenu  {   
+        height: auto;
+    }  
+    #ContentMenu  ul {  
+        width: 100%;  
+        display: block;  
+        height: auto;  
+    }  
+    #ContentMenu  li {  
+        width: 50%;  
+        float: left;  
+        position: relative;  
+    }  
+    #ContentMenu  li a {  
+        border: 2px solid #aaaaaa;
+    }  
+    #ContentMenu  a {  
+        text-align: center;  
+        width: 100%;
+    }
+body {
+  overflow-x:hidden;
+}
 }

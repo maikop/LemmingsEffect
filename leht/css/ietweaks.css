@@ -3,3 +3,6 @@
 	zoom: 1;
 	filter:progid:DXImageTransform.Microsoft.Shadow(Color=#777777, Strength=10, Direction=180);
 }
+.clearfix {  
+        zoom: 1;  
+}
