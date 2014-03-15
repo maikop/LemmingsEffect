@@ -5,7 +5,7 @@ import os
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import template
-import sqlite3
+#import sqlite3
 
 class MainPage(webapp.RequestHandler):
   def get (self, q):
