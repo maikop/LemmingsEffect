@@ -2,6 +2,7 @@ html {
 	height:100%;
 	padding:0;
 	margin:0;
+    font-family: Cambria, Georgia, serif;
 }
 
 body {
@@ -31,7 +32,7 @@ body {
 
 }
 .menu a{
-        line-height: 38px;
+    line-height: 38px;
 	display: inline-block;
 	text-decoration: none;
 }
@@ -79,12 +80,14 @@ body {
 	position:relative;
 	top:10px;
 	left:20px;
+    overflow:hidden;
+    background-color:#ffca80;
 }
 #HeaderMenu{
 	z-index:1;
 	width:100%;
 	height:40px;
-	position:relative;
+	position:absolute;
 	top:150px;
 	background-color:#ffca80;
 	/*IE-9 kuni 11 box shadow fix*/
@@ -111,16 +114,13 @@ body {
 #HeaderCenterMenu {
 	position:relative;
 	top:-36px;
+    left:0px;
 	z-index:2;
 	margin:auto;
 	padding:0px;
 	padding-right: 220px;
 	width: 100%;
-
-
-	/*Hilisemaks tabide kasutamiseks*/
-	/*overflow: hidden;
-	/*
+    /*
 	https://www.w3.org/Bugs/Public/show_bug.cgi?id=18913
 	CSS validator bug, calc kasutusel hilisemaks tabide kasutusvõimaluseks
 	width: calc(100% - 212px);
@@ -153,11 +153,6 @@ z-index:5;
     top:-40px;
     margin-left: 5px;
     margin-right: 20px;
-}
-#MenuButtonContainer{
-	display:block; 
-	position:relative; 
-	left:-68px;
 }
 #LeftButton a, #RightButton a {
     display: table-cell;
@@ -216,7 +211,6 @@ z-index:5;
 	display: inline-block;
 	position:relative;
 	width:100%;
-  
 }
 
 .News {
@@ -230,8 +224,9 @@ z-index:5;
 }
 @media screen and (max-width: 600px) {
 	#HeaderCenterMenu{
-		padding-right: 120px;
-		width:100%;  
+		padding: 0px;
+        position:absolute;
+        top:0px;
 	}
 
 	#HeaderCenterMenu li {
@@ -250,11 +245,12 @@ z-index:5;
 		border-top:2px solid #aaaaaa;
 	}
 	#HeaderCenterMenu ul {
-		width:240px;
+		width:100%;
+        min-width:240px;
 		display: none;
-		height:300px;
+		height:auto;
 		position:relative;
-		left:-50px;
+        left:20px;
 		box-shadow:10px 6px 4px #777777;
 		overflow-y:scroll;
 		overflow-x:hidden;
@@ -262,7 +258,7 @@ z-index:5;
 	.menu a#headerMenuButton{
 		display:block;
 		background-color: #ffca80;
-		width:80px;
+		width:100px;
 		margin-left:20px;
 		text-align:center;
 		border: 2px solid #aaaaaa;
@@ -304,9 +300,6 @@ overflow: visible;
         text-align: center;  
         width: 100%;
     }
-body {
-  overflow-x:hidden;
-}
 }
 @media screen and (max-width: 420px) {
 	#ContentMenu  li {  

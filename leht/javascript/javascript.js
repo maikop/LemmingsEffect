@@ -53,7 +53,7 @@ function movescroll() {
         }
     } else {
         $("#HeaderMenu").css({
-            position: 'relative',
+            position: 'absolute',
             left: '0px',
             top: nameSpace.korgus + "px"
         });
@@ -101,7 +101,8 @@ $(function () {
         if (w > nameSpace.width && menu.is(':hidden')) {
             menu.removeAttr('style');
         }
-        if (w <= nameSpace.width) {
+        //vaata css-i, kus tuleb 15?
+        if (w - 15 <= nameSpace.width) {
             $('#HeaderCenterMenu ul').css({
                 height: $("body").height() - korgus
             });
@@ -177,10 +178,11 @@ $(window).load(function () {
             VtabsRealWidth += (settings.buttonwidth) / 2;
             return VtabsRealWidth;
         }
-        $(".moveableContainer").css({width: tabsRealWidth+'px'});
+        $(".moveableContainer").css({width: tabsRealWidth + 'px'});
         function hideWrapper() {
             var w = window.innerWidth;
-            if ((w > nameSpace.width)) {
+            //Vaata css-ist kus tuleb -15, see on juba kahes kohas
+            if ((w - 15 > nameSpace.width)) {
                 if (toggleWrapInner) {
                     ul.wrapInner('<span class="fixedContainer"><div class="moveableContainer"  ></div></span>');
                     $('.fixedContainer').css({
@@ -297,7 +299,7 @@ $(window).load(function () {
         return this;
     }; // end of functions
 }(jQuery));
-$(function () {
+$(window).load(function () {
     'use strict';
     $("#HeaderCenterMenu").scrollabletab();
 });
