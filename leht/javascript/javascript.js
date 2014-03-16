@@ -163,7 +163,7 @@ $(window).load(function () {
         var toggleWrapInner = true,
             ul = this.children('ul').first(),
             tabBarWidth = $(this).width(),
-            offset = tabBarWidth / 4,
+            offset = tabBarWidth / 3,
             moveable = ul.find('.moveableContainer').first(),
             leftArrow = $("#LeftButton"),
             rightArrow = $("#RightButton");
@@ -193,7 +193,7 @@ $(window).load(function () {
                         left: settings.locationsave + 'px'
                     });
                     tabBarWidth = $('.fixedContainer').width();
-                    offset = tabBarWidth / 4;
+                    offset = tabBarWidth / 3;
                     toggleWrapInner = false;
                 }
             } else {
@@ -215,7 +215,7 @@ $(window).load(function () {
             //moveable on defineeritud üleval//
             var currentPosition = parseInt(moveable.css('left'), 10);
             //alert(parseInt($("#HeaderCenterMenu").css('width'),10));
-            if (tabsRealWidth <= parseInt($("#HeaderCenterMenu").css('width'), 10)) {
+            if (tabsRealWidth() <= parseInt($("#HeaderCenterMenu").css('width'), 10)) {
                 $('#RightButton').css({
                     visibility: 'hidden'
                 });
@@ -257,14 +257,25 @@ $(window).load(function () {
                     left: currentPosition + offset + 'px'
                 }, 'slow');
             }
-            if (currentPosition >= 0 || currentPosition + offset >= 0) {
-                $('#LeftButton').css({
+            if (tabsRealWidth() <= parseInt($("#HeaderCenterMenu").css('width'), 10)) {
+                $('#RightButton').css({
                     visibility: 'hidden'
                 });
+                if (currentPosition >= 0) {
+                    $('#LeftButton').css({
+                        visibility: 'hidden'
+                    });
+                }
+            } else {
+                if (currentPosition >= 0 || currentPosition + offset >= 0) {
+                    $('#LeftButton').css({
+                        visibility: 'hidden'
+                    });
+                }
+                $('#RightButton').css({
+                    visibility: 'visible'
+                });
             }
-            $('#RightButton').css({
-                visibility: 'visible'
-            });
         });
         rightArrow.on('click', function (e) {
             e.preventDefault();
@@ -274,19 +285,31 @@ $(window).load(function () {
                     left: currentPosition - offset + 'px'
                 }, 'slow');
             }
-            if (tabBarWidth - (currentPosition - offset) >= tabsRealWidth()) {
+            if (tabsRealWidth() <= parseInt($("#HeaderCenterMenu").css('width'), 10)) {
                 $('#RightButton').css({
                     visibility: 'hidden'
                 });
+                if (currentPosition >= 0) {
+                    $('#LeftButton').css({
+                        visibility: 'hidden'
+                    });
+                }
+            } else {
+                if (tabBarWidth - (currentPosition - offset) >= tabsRealWidth()) {
+                    $('#RightButton').css({
+                        visibility: 'hidden'
+                    });
+                }
+                $('#LeftButton').css({
+                    visibility: 'visible'
+                });
             }
-            $('#LeftButton').css({
-                visibility: 'visible'
-            });
         });
         $(window).resize(function () {
             hideWrapper();
             showButtons();
             headerCenterMenuWidth();
+            //VAATA CSSist JÄRGI kus tuleb +22px
             $('.fixedContainer').css({
                 width: parseInt($("#HeaderCenterMenu").css('width'), 10) - (2 * settings.buttonwidth + 22) + 'px'
             });
@@ -297,7 +320,7 @@ $(window).load(function () {
         });
         showButtons();
         return this;
-    }; // end of functions
+    };
 }(jQuery));
 $(window).load(function () {
     'use strict';
