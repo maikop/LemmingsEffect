@@ -175,9 +175,9 @@ $(window).load(function () {
             ul.find('li').each(function (index, element) {
                 VtabsRealWidth += $(element).width();
                 VtabsRealWidth += parseInt($(element).css('margin-right'), 10);
+                VtabsRealWidth += parseInt($(element).css('margin-left'), 10);
             });
-            //Vahel jÃ¤Ã¤b muidu viimane tab osaliselt peitu
-            VtabsRealWidth += (settings.buttonwidth) / 2;
+            VtabsRealWidth += settings.buttonwidth;
             return VtabsRealWidth;
         }
         $(".moveableContainer").css({width: tabsRealWidth + 'px'});
@@ -186,8 +186,7 @@ $(window).load(function () {
                 if (toggleWrapInner) {
                     ul.wrapInner('<span class="fixedContainer"><div class="moveableContainer"  ></div></span>');
                     $('.fixedContainer').css({
-                        //MIKS +22, kuskil indent/margin/padding?
-                        width: parseInt($("#HeaderCenterMenu").css('width'), 10) - (2 * settings.buttonwidth + 22) + 'px'
+                        width: parseInt($("#HeaderCenterMenu").css('width'), 10) - (2 * settings.buttonwidth) + 'px'
                     });
                     moveable = ul.find('.moveableContainer').first();
                     moveable.css({
@@ -220,10 +219,8 @@ $(window).load(function () {
         hideWrapper();
 
         function showButtons() {
-            //moveable on defineeritud Ã¼leval//
             var currentPosition = parseInt(moveable.css('left'), 10);
-            //alert(parseInt($("#HeaderCenterMenu").css('width'),10));
-            if (tabsRealWidth() <= parseInt($("#HeaderCenterMenu").css('width'), 10)) {
+            if (tabsRealWidth() <= parseInt($(".fixedContainer").css('width'), 10)) {
                 $('#RightButton').css({
                     visibility: 'hidden'
                 });
@@ -265,7 +262,7 @@ $(window).load(function () {
                     left: currentPosition + offset + 'px'
                 }, settings.speed);
             }
-            if (tabsRealWidth() <= parseInt($("#HeaderCenterMenu").css('width'), 10)) {
+            if (tabsRealWidth() <= parseInt($(".fixedContainer").css('width'), 10)) {
                 $('#RightButton').css({
                     visibility: 'hidden'
                 });
@@ -293,7 +290,7 @@ $(window).load(function () {
                     left: currentPosition - offset + 'px'
                 }, settings.speed);
             }
-            if (tabsRealWidth() <= parseInt($("#HeaderCenterMenu").css('width'), 10)) {
+            if (tabsRealWidth() <= parseInt($(".fixedContainer").css('width'), 10)) {
                 $('#RightButton').css({
                     visibility: 'hidden'
                 });
@@ -315,11 +312,9 @@ $(window).load(function () {
         });
         $(window).resize(function () {
             hideWrapper();
-            showButtons();
             headerCenterMenuWidth();
-            //VAATA CSSist JÃ„RGI kus tuleb +22px
             $('.fixedContainer').css({
-                width: parseInt($("#HeaderCenterMenu").css('width'), 10) - (2 * settings.buttonwidth + 22) + 'px'
+                width: parseInt($("#HeaderCenterMenu").css('width'), 10) - (2 * settings.buttonwidth) + 'px'
             });
             tabBarWidth = $('.fixedContainer').width();
             offset = tabBarWidth / 4;
