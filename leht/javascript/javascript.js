@@ -1,31 +1,31 @@
-/*Kuna kasutuses on JQuery, siis .each(index, element) juures on index kasutuses, mispärast: 
+/*Kuna kasutuses on JQuery, siis .each(index, element) juures on index kasutuses, mispÃ¤rast: 
  * jslint unparam: true
- * global JQuery $ ja window on määratud */
+ * global JQuery $ ja window on mÃ¤Ã¤ratud */
 /*jslint browser: true*/
 /*global window, $, jQuery*/
 /*jslint unparam: true*/
 //Muutujad
 var nameSpace = {
     lukus: false,
-    //Animatsiooni lukustus (muidu saadaks see pidevalt scrollides animatsioone ja lõhuks lehe)
+    //Animatsiooni lukustus (muidu saadaks see pidevalt scrollides animatsioone ja lÃµhuks lehe)
     korgus: 150,
-    //Headeri Menüü kõrgus (uurib automaatselt korrektse järgi)
+    //Headeri MenÃ¼Ã¼ kÃµrgus (uurib automaatselt korrektse jÃ¤rgi)
     korda: 1000,
     //Ajavahemik, mille jooksul aktiveeritakse movescroll
     animatsioon: 200,
     //Animatsiooni kiirus
     fixedheight: 200,
-    //Jätab menüü jaoks maksimaalselt nii palju vaba ruumi (enamvähem headeri kõrgus)
+    //JÃ¤tab menÃ¼Ã¼ jaoks maksimaalselt nii palju vaba ruumi (enamvÃ¤hem headeri kÃµrgus)
     minfixedheight: 50,
-    //Menüü jätab pisut vaba ruumi
-    width: 600,
-    //Ekraanilaius, mille korral aktiveerib menüünupu
+    //MenÃ¼Ã¼ jÃ¤tab pisut vaba ruumi
+    width: 585,
+    //Ekraanilaius, mille korral aktiveerib menÃ¼Ã¼nupu
     minwidth: 360,
-    //Ekraanilaius, millest väiksema puhul ei too logo nähtavale
-    HeaderMenuHeight: 40 //HeaderMenu height väärtus
+    //Ekraanilaius, millest vÃ¤iksema puhul ei too logo nÃ¤htavale
+    HeaderMenuHeight: 40 //HeaderMenu height vÃ¤Ã¤rtus
 };
-//Kui akna asukoht madalam kui kindel kõrgus, too logo nähtavale ja fikseeri header
-//Kui akna asukoht kõrgem, peida logo ja lase header lahti
+//Kui akna asukoht madalam kui kindel kÃµrgus, too logo nÃ¤htavale ja fikseeri header
+//Kui akna asukoht kÃµrgem, peida logo ja lase header lahti
 function movescroll() {
     'use strict';
     if ($(window).scrollTop() >= nameSpace.korgus) {
@@ -41,7 +41,7 @@ function movescroll() {
             }, nameSpace.animatsioon, function () {
                 nameSpace.lukus = false;
             });
-            //Kui ekraan väiksem, peidab logo
+            //Kui ekraan vÃ¤iksem, peidab logo
         } else if (!nameSpace.lukus && $(window).innerWidth() <= nameSpace.minwidth) {
             nameSpace.lukus = true;
             $("#HeaderCenterMenu").animate({
@@ -71,8 +71,8 @@ $(function () {
     var menubutton = $('#headerMenuButton'),
         menu = $('#HeaderCenterMenu ul'),
         korgus = Math.max(nameSpace.fixedheight - $(window).scrollTop(), nameSpace.minfixedheight);
-    //Paneb esimest korda menüü korguse paika
-    if ($(window).width() < nameSpace.width && menu.is(':hidden')) {
+    //Paneb esimest korda menÃ¼Ã¼ korguse paika
+    if (menu.is(':hidden')) {
         $('#HeaderCenterMenu ul').css({
             height: $("body").height() - korgus
         });
@@ -81,10 +81,10 @@ $(function () {
         e.preventDefault();
         menu.slideToggle();
     });
-    //Kontrollib menüü kõrgust
+    //Kontrollib menÃ¼Ã¼ kÃµrgust
     $(window).scroll(function () {
         korgus = Math.max(nameSpace.fixedheight - $(window).scrollTop(), nameSpace.minfixedheight);
-        if ($(window).width() < nameSpace.width) {
+        if ($(window).innerWidth() < nameSpace.width) {
             $('#HeaderCenterMenu ul').css({
                 height: $("body").height() - korgus
             });
@@ -95,11 +95,10 @@ $(function () {
         }
     });
     function buttonshider() {
-        var w = $(window).innerWidth();
-        if (w > nameSpace.width && menu.is(':hidden')) {
+        if (menubutton.is(':visible') && menu.is(':hidden')) {
             menu.removeAttr('style');
         }
-        if (w <= nameSpace.width) {
+        if (menubutton.is(':visible')) {
             $('#HeaderCenterMenu ul').css({
                 height: $("body").height() - korgus
             });
@@ -128,14 +127,14 @@ $(function () {
 });
 $(window).load(function () {
     'use strict';
-    //Kui leht laetaks, uurib css-ist kõrguse järgi
+    //Kui leht laetaks, uurib css-ist kÃµrguse jÃ¤rgi
     nameSpace.korgus = (parseInt($('#HeaderMenu').css('top'), 10));
     movescroll();
     $(window).scroll(function () {
         movescroll();
     });
     //Kuni paremat lahendust pole, kontrollib kord sekundis scrollise asukohta
-    //Juhuks, kui logo valesse asendisse kinni jääb
+    //Juhuks, kui logo valesse asendisse kinni jÃ¤Ã¤b
     window.setInterval(function () {
         movescroll();
     }, nameSpace.korda);
@@ -148,7 +147,8 @@ $(window).load(function () {
     'use strict';
     var settings = {
         buttonwidth: 40,
-        locationsave: 0 //Placeholder hetkel (peaks liigutama tabide fookust)
+        locationsave: 0,
+        speed: "fast"
     };
     $.fn.scrollabletab = function () {
         settings.buttonwidth = (parseInt($('#LeftButton').css('width'), 10));
@@ -164,7 +164,8 @@ $(window).load(function () {
         var toggleWrapInner = true,
             ul = this.children('ul').first(),
             tabBarWidth = $(this).width(),
-            offset = tabBarWidth / 3,
+            menubutton = $('#headerMenuButton'),
+            offset = tabBarWidth / 2,
             moveable = ul.find('.moveableContainer').first(),
             leftArrow = $("#LeftButton"),
             rightArrow = $("#RightButton");
@@ -175,14 +176,13 @@ $(window).load(function () {
                 VtabsRealWidth += $(element).width();
                 VtabsRealWidth += parseInt($(element).css('margin-right'), 10);
             });
-            //Vahel jääb muidu viimane tab osaliselt peitu
+            //Vahel jÃ¤Ã¤b muidu viimane tab osaliselt peitu
             VtabsRealWidth += (settings.buttonwidth) / 2;
             return VtabsRealWidth;
         }
         $(".moveableContainer").css({width: tabsRealWidth + 'px'});
         function hideWrapper() {
-            var w = $(window).innerWidth();
-            if ((w > nameSpace.width)) {
+            if (menubutton.is(':hidden')) {
                 if (toggleWrapInner) {
                     ul.wrapInner('<span class="fixedContainer"><div class="moveableContainer"  ></div></span>');
                     $('.fixedContainer').css({
@@ -195,7 +195,7 @@ $(window).load(function () {
                     });
                     //moveable.css({left: locationsave + 'px'});
                     tabBarWidth = $('.fixedContainer').width();
-                    offset = tabBarWidth / 3;
+                    offset = tabBarWidth / 2;
                     $('#LeftButton').css({
                         visibility: 'visible'
                     });
@@ -220,7 +220,7 @@ $(window).load(function () {
         hideWrapper();
 
         function showButtons() {
-            //moveable on defineeritud üleval//
+            //moveable on defineeritud Ã¼leval//
             var currentPosition = parseInt(moveable.css('left'), 10);
             //alert(parseInt($("#HeaderCenterMenu").css('width'),10));
             if (tabsRealWidth() <= parseInt($("#HeaderCenterMenu").css('width'), 10)) {
@@ -259,11 +259,11 @@ $(window).load(function () {
             if (currentPosition + offset >= 0) {
                 moveable.stop().animate({
                     left: '0'
-                }, 'slow');
+                }, settings.speed);
             } else {
                 moveable.stop().animate({
                     left: currentPosition + offset + 'px'
-                }, 'slow');
+                }, settings.speed);
             }
             if (tabsRealWidth() <= parseInt($("#HeaderCenterMenu").css('width'), 10)) {
                 $('#RightButton').css({
@@ -291,7 +291,7 @@ $(window).load(function () {
             if (tabBarWidth - currentPosition < tabsRealWidth()) {
                 moveable.stop().animate({
                     left: currentPosition - offset + 'px'
-                }, 'slow');
+                }, settings.speed);
             }
             if (tabsRealWidth() <= parseInt($("#HeaderCenterMenu").css('width'), 10)) {
                 $('#RightButton').css({
@@ -317,7 +317,7 @@ $(window).load(function () {
             hideWrapper();
             showButtons();
             headerCenterMenuWidth();
-            //VAATA CSSist JÄRGI kus tuleb +22px
+            //VAATA CSSist JÃ„RGI kus tuleb +22px
             $('.fixedContainer').css({
                 width: parseInt($("#HeaderCenterMenu").css('width'), 10) - (2 * settings.buttonwidth + 22) + 'px'
             });

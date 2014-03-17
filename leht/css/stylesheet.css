@@ -255,6 +255,9 @@ z-index:5;
 		overflow-y:scroll;
 		overflow-x:hidden;
 	}
+	#headerMenuButton{
+        display:block;
+    }
 	.menu a#headerMenuButton{
 		display:block;
 		background-color: #ffca80;
