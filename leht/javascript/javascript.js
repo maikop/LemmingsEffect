@@ -4,7 +4,6 @@
 /*jslint browser: true*/
 /*global window, $, jQuery*/
 /*jslint unparam: true*/
-//<![CDATA[
 //Muutujad
 var nameSpace = {
     lukus: false,
@@ -21,7 +20,7 @@ var nameSpace = {
     //Menüü jätab pisut vaba ruumi
     width: 600,
     //Ekraanilaius, mille korral aktiveerib menüünupu
-    minwidth: 354,
+    minwidth: 360,
     //Ekraanilaius, millest väiksema puhul ei too logo nähtavale
     HeaderMenuHeight: 40 //HeaderMenu height väärtus
 };
@@ -35,7 +34,7 @@ function movescroll() {
             left: '0px',
             top: '0px'
         });
-        if (!nameSpace.lukus && window.innerWidth > nameSpace.minwidth) {
+        if (!nameSpace.lukus && $(window).innerWidth() > nameSpace.minwidth) {
             nameSpace.lukus = true;
             $("#HeaderCenterMenu").animate({
                 left: '90px'
@@ -43,7 +42,7 @@ function movescroll() {
                 nameSpace.lukus = false;
             });
             //Kui ekraan väiksem, peidab logo
-        } else if (!nameSpace.lukus && window.innerWidth <= nameSpace.minwidth) {
+        } else if (!nameSpace.lukus && $(window).innerWidth() <= nameSpace.minwidth) {
             nameSpace.lukus = true;
             $("#HeaderCenterMenu").animate({
                 left: '0px'
@@ -95,14 +94,12 @@ $(function () {
             });
         }
     });
-
-    $(window).resize(function () {
-        var w = window.innerWidth;
+    function buttonshider() {
+        var w = $(window).innerWidth();
         if (w > nameSpace.width && menu.is(':hidden')) {
             menu.removeAttr('style');
         }
-        //vaata css-i, kus tuleb 15?
-        if (w - 15 <= nameSpace.width) {
+        if (w <= nameSpace.width) {
             $('#HeaderCenterMenu ul').css({
                 height: $("body").height() - korgus
             });
@@ -123,6 +120,10 @@ $(function () {
                 display: 'table'
             });
         }
+    }
+    buttonshider();
+    $(window).resize(function () {
+        buttonshider();
     });
 });
 $(window).load(function () {
@@ -180,9 +181,8 @@ $(window).load(function () {
         }
         $(".moveableContainer").css({width: tabsRealWidth + 'px'});
         function hideWrapper() {
-            var w = window.innerWidth;
-            //Vaata css-ist kus tuleb -15, see on juba kahes kohas
-            if ((w - 15 > nameSpace.width)) {
+            var w = $(window).innerWidth();
+            if ((w > nameSpace.width)) {
                 if (toggleWrapInner) {
                     ul.wrapInner('<span class="fixedContainer"><div class="moveableContainer"  ></div></span>');
                     $('.fixedContainer').css({
@@ -196,17 +196,23 @@ $(window).load(function () {
                     //moveable.css({left: locationsave + 'px'});
                     tabBarWidth = $('.fixedContainer').width();
                     offset = tabBarWidth / 3;
+                    $('#LeftButton').css({
+                        visibility: 'visible'
+                    });
+                    $('#RightButton').css({
+                        visibility: 'visible'
+                    });
                     toggleWrapInner = false;
                 }
             } else {
-                settings.locationsave=parseInt(moveable.css('left'), 10);
+                settings.locationsave = parseInt(moveable.css('left'), 10);
                 ul.find('.moveableContainer').children().unwrap();
                 ul.find('.fixedContainer').children().unwrap();
                 $('#LeftButton').css({
-                    display: 'none'
+                    visibility: 'hidden'
                 });
                 $('#RightButton').css({
-                    display: 'none'
+                    visibility: 'hidden'
                 });
                 toggleWrapInner = true;
             }
