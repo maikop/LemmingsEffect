@@ -186,18 +186,20 @@ $(window).load(function () {
                 if (toggleWrapInner) {
                     ul.wrapInner('<span class="fixedContainer"><div class="moveableContainer"  ></div></span>');
                     $('.fixedContainer').css({
+                        //MIKS +22, kuskil indent/margin/padding?
                         width: parseInt($("#HeaderCenterMenu").css('width'), 10) - (2 * settings.buttonwidth + 22) + 'px'
                     });
                     moveable = ul.find('.moveableContainer').first();
-                    $('.moveableContainer').css({
+                    moveable.css({
                         left: settings.locationsave + 'px'
                     });
+                    //moveable.css({left: locationsave + 'px'});
                     tabBarWidth = $('.fixedContainer').width();
                     offset = tabBarWidth / 3;
                     toggleWrapInner = false;
                 }
             } else {
-                //alert(parseInt(moveable.css('left'), 10));
+                settings.locationsave=parseInt(moveable.css('left'), 10);
                 ul.find('.moveableContainer').children().unwrap();
                 ul.find('.fixedContainer').children().unwrap();
                 $('#LeftButton').css({
