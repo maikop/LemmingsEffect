@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for uudised in object_list %}
+<h3><a href="/reader/{{ uudised.id }}">{{ uudised.Title }}</a></h3>
+
+<div class = "uudised_meta">
+    {{ uudised.Title }}
+</div>
+
+
+<div class = "reader_body">
+    {{reader.body|safe|linebreaks}}
+    {{ uudised.Published }}
+
+    {{reader.body|safe|linebreaks}}
+    {{ uudised.Link }}
+</div>
+{% endfor  %}
+{% endblock %}

@@ -1,0 +1,9 @@
+Hetkel on ta nii kaugel, et loob vääääääga basic HTML listi andmebaasi sissekannetest. HTML failid on reader\templates\ kaustas. 
+Local serveris jooksutamiseks on vaja:
+1) Viimast Pythonit ja Djangot. 
+2) PostgresSQL andmebaasi, mille nimi on uudised (vajalikud tabelid ta genereerib ise). uudisreader\settings.py DATABASES alt peate ise muutma username'i ja passwordi.
+3) Root folderis käsureale: python manage.py syncdb
+Siis ta küsib, et kas teha superuser. Sellega saab admin lehele ennast sisse meldida. Admin lehel praegu saab andmebaasi sissekandeid teha. See etapp loob vajalikud tabelid. Custom tabeleid saab tuunida reader\models.py failis.
+4) Serveri jooksutamiseks: python manage.py runserver
+Koduleht: http://127.0.0.1:8000/reader/
+Admin leht: http://127.0.0.1:8000/admin/
