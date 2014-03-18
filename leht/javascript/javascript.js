@@ -1,7 +1,6 @@
 /*Kuna kasutuses on JQuery, siis .each(index, element) juures on index kasutuses, mispÃ¤rast: 
  * jslint unparam: true
  * global JQuery $ ja window on mÃ¤Ã¤ratud */
-/*jslint browser: true*/
 /*global window, $, jQuery*/
 /*jslint unparam: true*/
 //Muutujad
@@ -81,7 +80,7 @@ $(function () {
         e.preventDefault();
         menu.slideToggle();
     });
-    //Kontrollib menÃ¼Ã¼ kÃµrgust
+    //Kontrollib menüü kõrgust
     $(window).scroll(function () {
         korgus = Math.max(nameSpace.fixedheight - $(window).scrollTop(), nameSpace.minfixedheight);
         if ($(window).innerWidth() < nameSpace.width) {
@@ -127,14 +126,14 @@ $(function () {
 });
 $(window).load(function () {
     'use strict';
-    //Kui leht laetaks, uurib css-ist kÃµrguse jÃ¤rgi
+    //Kui leht laetaks, uurib css-ist kõrguse järgi
     nameSpace.korgus = (parseInt($('#HeaderMenu').css('top'), 10));
     movescroll();
     $(window).scroll(function () {
         movescroll();
     });
     //Kuni paremat lahendust pole, kontrollib kord sekundis scrollise asukohta
-    //Juhuks, kui logo valesse asendisse kinni jÃ¤Ã¤b
+    //Juhuks, kui logo valesse asendisse kinni jääb
     window.setInterval(function () {
         movescroll();
     }, nameSpace.korda);
@@ -174,13 +173,11 @@ $(window).load(function () {
             //index kasutuses jquery each funktsioonis//
             ul.find('li').each(function (index, element) {
                 VtabsRealWidth += $(element).width();
-                VtabsRealWidth += parseInt($(element).css('margin-right'), 10);
-                VtabsRealWidth += parseInt($(element).css('margin-left'), 10);
             });
             VtabsRealWidth += settings.buttonwidth;
             return VtabsRealWidth;
         }
-        $(".moveableContainer").css({width: tabsRealWidth + 'px'});
+        $(".moveableContainer").css({width: tabsRealWidth() + 'px'});
         function hideWrapper() {
             if (menubutton.is(':hidden')) {
                 if (toggleWrapInner) {
@@ -192,7 +189,6 @@ $(window).load(function () {
                     moveable.css({
                         left: settings.locationsave + 'px'
                     });
-                    //moveable.css({left: locationsave + 'px'});
                     tabBarWidth = $('.fixedContainer').width();
                     offset = tabBarWidth / 2;
                     $('#LeftButton').css({
@@ -217,7 +213,6 @@ $(window).load(function () {
             }
         }
         hideWrapper();
-
         function showButtons() {
             var currentPosition = parseInt(moveable.css('left'), 10);
             if (tabsRealWidth() <= parseInt($(".fixedContainer").css('width'), 10)) {
