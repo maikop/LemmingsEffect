@@ -94,7 +94,7 @@ $(function () {
         }
     });
     function buttonshider() {
-        if (menubutton.is(':visible') && menu.is(':hidden')) {
+        if (menu.is(':hidden')) {
             menu.removeAttr('style');
         }
         if (menubutton.is(':visible')) {
@@ -314,7 +314,6 @@ $(window).load(function () {
             tabBarWidth = $('.fixedContainer').width();
             offset = tabBarWidth / 4;
             showButtons();
-            headerCenterMenuWidth();
         });
         showButtons();
         return this;
