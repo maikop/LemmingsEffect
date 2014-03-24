@@ -7,3 +7,20 @@ Siis ta küsib, et kas teha superuser. Sellega saab admin lehele ennast sisse mel
 4) Serveri jooksutamiseks: python manage.py runserver
 Koduleht: http://127.0.0.1:8000/reader/
 Admin leht: http://127.0.0.1:8000/admin/
+
+Vaheupdeit:
+
+Kustutage vanad tabelid ära praegu.
+
+Tegin valmis mingi algse crawleri:
+1) Andmebaasi on vaja lehe nime ja rss aadressi
+2) Ta käib reader_lehed tabeli läbi ja uuendab reader_uudised tabelit. (Praegu ainult title, kellaaeg, kokkuvõte ja link)
+3) http://127.0.0.1:8000/reader/ kuvab nad ette. Praegu tegin tutoriali järgi ja on html5, aga ma ei tea, kas seal on palju vahet, sest see nii basic:P Vaja oleks selle teisega merge'ida.
+4) Sorteerimine ei tööta atm.
+
+
+Praegu staatilised failid võtab ta /static/ kaustast (css ja logo on seal), aga põhi html ise on reader/templates kaustas nimega "base.html".  See listiosa genereeritakse failist "reader.html". Dünaamiline django content on {% ja %} vahel (for loop ja kasutatavatele tabelitele viitamised).
+
+https://www.youtube.com/watch?v=obJr6zH0C2Q
+Ma olen praegu selle tutoriali järgi teinud ja tundub suht asjalik ja arusaadav. 
+

@@ -3,7 +3,7 @@
 
 {% for uudised in object_list %}
 
-<p> {{uudised.Adddate|date:"Y-m-d"}}<a href="/blog/{{uudised.id}}"> {{uudised.Title}}</a><p>
+<p><a href="/blog/{{uudised.id}}"> {{uudised.Title}}</a><p>
 
 {% endfor  %}
 {% endblock %}
