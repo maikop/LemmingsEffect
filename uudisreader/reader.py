@@ -14,6 +14,14 @@ cursor = db.cursor()
 cursor.execute("SELECT * FROM reader_lehed;")
 a=cursor.fetchall()
 
+
+#Eemaldab SQL-i jaoks " ja '
+def qrem(word):
+	return word.replace('"','&quot;').replace("'","&#39;")
+
+
+
+
 #võtame RSS info
 for i in a:
 
@@ -31,8 +39,8 @@ for i in a:
         published = feed.entries[d].published
         
         cursor2 = db.cursor()
-        cursor2.execute("SELECT COUNT(id) FROM reader_uudised WHERE (title='%s' AND description='%s' AND link='%s' AND published='%s')" % (title, description, link, published))
+        cursor2.execute("""SELECT COUNT(id) FROM reader_uudised WHERE (title='%s' AND description='%s' AND link='%s' AND published='%s')""" % (qrem(title), qrem(description), qrem(link), qrem(published)))
         if (not ((cursor2.fetchall()[0][0]))):
-        	cursor.execute("INSERT INTO reader_uudised (title, description, link, published) VALUES (%s, %s, %s, %s)", (title, description, link, published))
+        	cursor.execute("INSERT INTO reader_uudised (title, description, link, published) VALUES (%s, %s, %s, %s)", (qrem(title), qrem(description), qrem(link), qrem(published)))
         db.commit()
 
