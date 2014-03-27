@@ -6,7 +6,7 @@ from reader.models import Uudised
 
 urlpatterns = patterns('',
                        url(r'^$', ListView.as_view(
-                           queryset=Uudised.objects.all().order_by("-id")[:25],
+                           page=Uudised.objects.all().order_by("-id")[:25],
                            template_name="reader.html")),
                            
                          url(r'^(?P<pk>\d+)$', DetailView.as_view(
@@ -14,11 +14,11 @@ urlpatterns = patterns('',
                            template_name="uudised.html")), 
                            
                        url(r'^latestnews/$', ListView.as_view(
-                           queryset=Uudised.objects.all().order_by("-id")[:25],
+                           page=Uudised.objects.all().order_by("-id")[:25],
                            template_name="archives.html")),
 
                        url(r'^archives/$', ListView.as_view(
-                           queryset=Uudised.objects.all().order_by("-id")[:25],
+                           page=Uudised.objects.all().order_by("-id")[:25],
                            template_name="archives.html")),                           
                          
 )

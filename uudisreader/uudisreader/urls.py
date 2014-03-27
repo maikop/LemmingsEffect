@@ -8,7 +8,10 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'uudisreader.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^reader/', include('reader.urls')),
+    
+    #Praegu ta viitab ainult vajalikule funktsioonile. 
+    
+    url(r'^', 'reader.views.index'),
     url(r'^admin/', include(admin.site.urls)),
 
 )

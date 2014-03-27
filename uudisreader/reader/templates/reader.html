@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-{% for uudised in object_list %}
+{% for uudised in page %}
 
     <div class = "reader_body">
     <div class = "uudised_meta">
@@ -8,12 +8,21 @@
             <article>
             <h3><a href="{{uudised.link}}">{{ uudised.title }}</a></h3>
             <i><p>{{uudised.published}}</p></i>
-            
             <!-- SQL injection turvamine on enne sql lisamist -->
             <p>{{ uudised.description |safe }}</p>
-                
-            </article>
 
+            </article>
     </div>
 {% endfor  %}
+
+{% if page.has_previous %}
+<a href="?page={{page.previous_page_number}}">previous</a>
+{% endif %}
+
+|{{page.number}}|
+
+{% if page.has_next %}
+<a href="?page={{page.next_page_number}}">next</a>
+{% endif %}
+
 {% endblock %}
