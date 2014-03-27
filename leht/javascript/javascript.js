@@ -3,13 +3,14 @@
  * global JQuery $ ja window on mÃ¤Ã¤ratud */
 /*global window, $, jQuery*/
 /*jslint unparam: true*/
+/*global document: false */
 //Muutujad
 var nameSpace = {
     lukus: false,
     //Animatsiooni lukustus (muidu saadaks see pidevalt scrollides animatsioone ja lÃµhuks lehe)
     korgus: 150,
     //Headeri MenÃ¼Ã¼ kÃµrgus (uurib automaatselt korrektse jÃ¤rgi)
-    korda: 1000,
+    korda: 5000,
     //Ajavahemik, mille jooksul aktiveeritakse movescroll
     animatsioon: 200,
     //Animatsiooni kiirus
@@ -70,7 +71,6 @@ $(function () {
     var menubutton = $('#headerMenuButton'),
         menu = $('#HeaderCenterMenu ul'),
         korgus = Math.max(nameSpace.fixedheight - $(window).scrollTop(), nameSpace.minfixedheight);
-    //Paneb esimest korda menÃ¼Ã¼ korguse paika
     if (menu.is(':hidden')) {
         $('#HeaderCenterMenu ul').css({
             height: $("body").height() - korgus
@@ -81,7 +81,7 @@ $(function () {
         menu.slideToggle();
     });
     //Kontrollib menüü kõrgust
-    $(window).scroll(function () {
+    function loadscroll () {
         korgus = Math.max(nameSpace.fixedheight - $(window).scrollTop(), nameSpace.minfixedheight);
         if ($(window).innerWidth() < nameSpace.width) {
             $('#HeaderCenterMenu ul').css({
@@ -92,6 +92,12 @@ $(function () {
                 height: nameSpace.HeaderMenuHeight
             });
         }
+    }
+    $(window).load(function () {
+        loadscroll();
+    });
+    $(window).scroll(function () {
+        loadscroll();
     });
     function buttonshider() {
         if (menu.is(':hidden')) {
@@ -126,6 +132,8 @@ $(function () {
 });
 $(window).load(function () {
     'use strict';
+    //Nüüd css-ist saab JAVASCRIPTI olemasolu järgi asju kontrollida
+    document.body.id = "JS";
     //Kui leht laetaks, uurib css-ist kõrguse järgi
     nameSpace.korgus = (parseInt($('#HeaderMenu').css('top'), 10));
     movescroll();
@@ -204,15 +212,14 @@ $(window).load(function () {
                 ul.find('.moveableContainer').children().unwrap();
                 ul.find('.fixedContainer').children().unwrap();
                 $('#LeftButton').css({
-                    visibility: 'hidden'
+                    display: 'none'
                 });
                 $('#RightButton').css({
-                    visibility: 'hidden'
+                    display: 'none'
                 });
                 toggleWrapInner = true;
             }
         }
-        hideWrapper();
         function showButtons() {
             var currentPosition = parseInt(moveable.css('left'), 10);
             if (tabsRealWidth() <= parseInt($(".fixedContainer").css('width'), 10)) {
@@ -305,7 +312,7 @@ $(window).load(function () {
                 });
             }
         });
-        $(window).resize(function () {
+        function loadresize() {
             hideWrapper();
             headerCenterMenuWidth();
             $('.fixedContainer').css({
@@ -314,8 +321,11 @@ $(window).load(function () {
             tabBarWidth = $('.fixedContainer').width();
             offset = tabBarWidth / 4;
             showButtons();
+        }
+        $(window).resize(function () {
+            loadresize();
         });
-        showButtons();
+        loadresize();
         return this;
     };
 }(jQuery));
