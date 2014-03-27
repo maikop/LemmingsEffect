@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import feedparser
 import psycopg2
 
@@ -28,7 +29,10 @@ for i in a:
         link = feed.entries[d].link
         title = feed.entries[d].title
         published = feed.entries[d].published
-
-        cursor.execute("INSERT INTO reader_uudised (title, description, link, published) VALUES (%s, %s, %s, %s)", (title, description, link, published))
+        
+        cursor2 = db.cursor()
+        cursor2.execute("SELECT COUNT(id) FROM reader_uudised WHERE (title='%s' AND description='%s' AND link='%s' AND published='%s')" % (title, description, link, published))
+        if (cursor2.fetchall()[0][0]) < 1:
+        	cursor.execute("INSERT INTO reader_uudised (title, description, link, published) VALUES (%s, %s, %s, %s)", (title, description, link, published))
         db.commit()
 
