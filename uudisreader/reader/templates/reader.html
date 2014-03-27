@@ -8,7 +8,9 @@
             <article>
             <h3><a href="{{uudised.link}}">{{ uudised.title }}</a></h3>
             <i><p>{{uudised.published}}</p></i>
-            <p>{{ uudised.description }}</p>
+            
+            <!-- SQL injection turvamine on enne sql lisamist -->
+            <p>{{ uudised.description |safe }}</p>
                 
             </article>
 
