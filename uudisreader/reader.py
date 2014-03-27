@@ -7,7 +7,7 @@ db = psycopg2.connect(
 	host = 'localhost',
 	database = 'uudised',
 	user = 'postgres',
-	password = 'Xtreme123'
+	password = ''
 )
 cursor = db.cursor()
 
