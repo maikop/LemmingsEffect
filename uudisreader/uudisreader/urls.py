@@ -11,7 +11,8 @@ urlpatterns = patterns('',
     
     #Praegu ta viitab ainult vajalikule funktsioonile. 
     
-    url(r'^', 'reader.views.index'),
+    url(r'^empty/', 'reader.views.empty'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^', 'reader.views.index'),
 
 )

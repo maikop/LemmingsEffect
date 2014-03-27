@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import feedparser
 import psycopg2
+import re #regular expressions, lubab korralikult teksti töödelda
 
 #loome ühenduse andmebaasiga
 db = psycopg2.connect(
@@ -15,9 +16,14 @@ cursor.execute("SELECT * FROM reader_lehed;")
 a=cursor.fetchall()
 
 
+#Eemaldab < ja >, turvaauk, eemaldab delfi jaoks <img > vahelise
+def ltgtrem(word):
+	word = re.sub('<img[^<]+?>', '', word)
+	return word.replace('<', '').replace('>', '')
+
 #Eemaldab SQL-i jaoks " ja '
 def qrem(word):
-	return word.replace('"','&quot;').replace("'","&#39;")
+	return ltgtrem(word.replace('"','&quot;').replace("'","&#39;"))
 
 
 

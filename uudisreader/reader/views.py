@@ -10,9 +10,21 @@ def index(request):
     #Teeb query
     queryset=Uudised.objects.all().order_by("-id")[:200]                      
     #Teeb ta 5-objektisteks juppideks
-    paginator = Paginator(queryset, 5)
+    paginator = Paginator(queryset, 10)
     #Valib esimese jupi.
     page_num = request.GET.get('page', 1)
     page=paginator.page(page_num)
 
     return render_to_response("reader.html", {'page':page})
+
+
+def empty(request):
+    #Teeb query
+    queryset=Uudised.objects.all().order_by("-id")[:200]
+    #Teeb ta 5-objektisteks juppideks
+    paginator = Paginator(queryset, 10)
+    #Valib esimese jupi.
+    page_num = request.GET.get('page', 1)
+    page=paginator.page(page_num)
+
+    return render_to_response("empty.html", {'page':page})
