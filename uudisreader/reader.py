@@ -32,7 +32,7 @@ for i in a:
         
         cursor2 = db.cursor()
         cursor2.execute("SELECT COUNT(id) FROM reader_uudised WHERE (title='%s' AND description='%s' AND link='%s' AND published='%s')" % (title, description, link, published))
-        if (cursor2.fetchall()[0][0]) < 1:
+        if (not ((cursor2.fetchall()[0][0]))):
         	cursor.execute("INSERT INTO reader_uudised (title, description, link, published) VALUES (%s, %s, %s, %s)", (title, description, link, published))
         db.commit()
 
