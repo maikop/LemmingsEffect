@@ -99,7 +99,7 @@ for i in a:
         lines = f.read()
         keelatud=["jah", "ei", "ja", "ning", "ega", "ehk", "et", "sest", "aga", "kuid", "vaid", "siis"]
         nuditud=[]
-
+        
         for bullets in farts:
             
             sona=bullets
@@ -107,24 +107,24 @@ for i in a:
             if sona[0].isupper()==True:
                     nuditud.append(sona)
             else:
+                maha_voetud=0
                 while True:
                         
                     answer=lines.find(sona)
-                    if (answer!=-1) and (sona not in keelatud) and (len(sona)>1) and (sona not in nuditud):
+                    if (answer!=-1) and (sona not in keelatud) and (len(sona)>1) and (sona not in nuditud) or (maha_voetud==4):
                             nuditud.append(sona)
                             break
-                    elif (len(sona)<2) or (sona in keelatud) or (sona in nuditud):
+                    elif (len(sona)<1) or (sona in keelatud) or (sona in nuditud):
                             break
                     else:
+                            maha_voetud+=1
                             sona=sona[:-1]
                         
         print(nuditud)
-
-
-        
+        nuditud = ' '.join(nuditud)
         cursor2 = db.cursor()
         cursor2.execute("""SELECT COUNT(id) FROM reader_uudised WHERE (title='%s' AND description='%s' AND link='%s' AND published='%s')""" % (qrem(title), qrem(description), qrem(link), qrem(published)))
         if (not ((cursor2.fetchall()[0][0]))):
-        	cursor.execute("INSERT INTO reader_uudised (title, description, link, published, kategooria, leht) VALUES (%s, %s, %s, %s,  %s, %s)", (qrem(title), qrem(description), qrem(link), qrem(published), qrem(kategooria), qrem(leht)))
+        	cursor.execute("INSERT INTO reader_uudised (title, description, link, published, kategooria, leht, nuditud) VALUES (%s, %s, %s, %s,  %s, %s, %s)", (qrem(title), qrem(description), qrem(link), qrem(published), qrem(kategooria), qrem(leht), qrem(nuditud)))
         db.commit()
 
