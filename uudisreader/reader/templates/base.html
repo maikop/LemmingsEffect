@@ -13,13 +13,12 @@
     <header class="mainhead">
         <img src="/static/img/mainlogo.png" width="700" height="144">
         <nav><ul>
-            <li class = "active"><a href="#">Top</a></li>
-            <li><a href='#'>Uued</a></li>
-            <li><a href='#'>vanad</a></li>
-            <li><a href='#'>olalal</a></li>
+            <li class = "active"><a href="?order=-id">Top</a></li>
+            <li><a href='?order=published'>Uued</a></li>
+            <li><a href='?order=-published'>vanad</a></li>
+            <li><a href='?order=title'>Tähestik</a></li>
         <ul></nav>   
     </header>    
-    
 
     
     {% block content %}

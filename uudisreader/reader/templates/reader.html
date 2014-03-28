@@ -16,13 +16,13 @@
 {% endfor  %}
 
 {% if page.has_previous %}
-<a href="?page={{page.previous_page_number}}">previous</a>
+<a href="?page={{page.previous_page_number}}&order={{ order }}">previous</a>
 {% endif %}
 
 |{{page.number}}|
 
 {% if page.has_next %}
-<a href="?page={{page.next_page_number}}">next</a>
+<a href="?page={{page.next_page_number}}&order={{ order }}">next</a>
 {% endif %}
 
 {% endblock %}
