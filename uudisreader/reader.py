@@ -92,35 +92,28 @@ for i in a:
         #enam ei otsi. Sidesõnad ja sõnakordused võtsin välja praegu.
 
         pealkiri=feed.entries[d].title
-        puhas = re.sub('[.!,;?:*]', '', pealkiri)
+        puhas = re.sub('[.!,;?:*«»]', '', pealkiri)
         farts=puhas.split()#listiks
 
         f=open('sonad.txt', encoding='UTF-8')
         lines = f.read()
         keelatud=["jah", "ei", "ja", "ning", "ega", "ehk", "et", "sest", "aga", "kuid", "vaid", "siis"]
         nuditud=[]
+
+
+        #See versioon lammutab lõppe
         
         for bullets in farts:
-            
-            sona=bullets
-            
-            if sona[0].isupper()==True:
-                    nuditud.append(sona)
-            else:
-                maha_voetud=0
-                while True:
-                        
-                    answer=lines.find(sona)
-                    if (answer!=-1) and (sona not in keelatud) and (len(sona)>1) and (sona not in nuditud) or (maha_voetud==4):
-                            nuditud.append(sona)
-                            break
-                    elif (len(sona)<1) or (sona in keelatud) or (sona in nuditud):
-                            break
-                    else:
-                            maha_voetud+=1
-                            sona=sona[:-1]
-                        
+            if bullets not in keelatud:
+                    a=round(len(bullets)/1.5)
+
+                    bullets=bullets[:a]
+                    nuditud.append(bullets)
+
         print(nuditud)
+
+
+
         nuditud = ' '.join(nuditud)
         cursor2 = db.cursor()
         cursor2.execute("""SELECT COUNT(id) FROM reader_uudised WHERE (title='%s' AND description='%s' AND link='%s' AND published='%s')""" % (qrem(title), qrem(description), qrem(link), qrem(published)))
