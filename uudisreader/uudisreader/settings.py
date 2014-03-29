@@ -11,6 +11,20 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import djcelery
+from datetime import timedelta
+
+djcelery.setup_loader()
+
+# The default Django db scheduler
+BROKER_URL = 'django://'
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+CELERY_TIMEZONE = 'UTC'
+# The backend used to store task results - because we're going to be 
+CELERY_IMPORTS = ("tasks", )
+CELERY_ALWAYS_EAGER = True
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -38,6 +52,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'reader',
+    'djcelery',
 )
 
 MIDDLEWARE_CLASSES = (
