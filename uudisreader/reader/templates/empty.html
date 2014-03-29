@@ -14,6 +14,10 @@
     </div>
 {% endfor  %}
 
+{% if page.has_next %}
+<div class="PageNav">
 {{page.number}} &#47; {{page.paginator.num_pages}}
+</div>
+{% endif %}
 
 {% endblock %}

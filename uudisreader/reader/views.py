@@ -44,13 +44,14 @@ def index(request):
 
 
 def empty(request):
+    #Järjestuse valik
     page_order = request.GET.get('order', '')
     page_order_list = ["id", "-id", "published", "-published", "title", "-title"]
     if page_order not in page_order_list:
         page_order=page_order_list[1]
     #Valib esimese jupi.
     page_num = int(request.GET.get('page', 1))
-    chunk_max = len(Uudised.objects.all().order_by("-id"))
+    chunk_max = Uudised.objects.count()
     #Jagub kolmega (praegune leht, uus leht ja vana leht)
     chunk_size = 30
     #Siis saab jätta next ja prev nupud
@@ -68,10 +69,11 @@ def empty(request):
     elif page_num >= max_pages:
         fake_num = 3
     #Teeb query
-    queryset=Uudised.objects.all().order_by("-id")[chunk_start:chunk_stop]
+    queryset=Uudised.objects.all().order_by(page_order)[chunk_start:chunk_stop]
     #Teeb ta 5-objektisteks juppideks
     paginator = Paginator(queryset, per_page)
     paginator._num_pages = max_pages
     page=paginator.page(fake_num)
     page.number = page_num
+
     return render_to_response("empty.html", {'page':page})

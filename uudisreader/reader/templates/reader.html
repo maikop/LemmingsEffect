@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
+<div id="ContentMenu" class="menu">
+                <ul id="ContentNav">
+                    <li class = "active"><a href="?order=-id">Top</a></li>
+                    <li><a href='?order=published'>Uued</a></li>
+                    <li><a href='?order=-published'>vanad</a></li>
+                    <li><a href='?order=title'>Tähestik</a></li>
+                </ul>
+</div>
+<div id="Headlines">
 {% for uudised in page %}
-
     <div class = "reader_body">
     <div class = "uudised_meta">
-    </div>
             <article>
             <h3><a href="{{uudised.link}}">{{ uudised.title }}</a></h3>
             <i><p>{{uudised.published}}</p></i>
@@ -13,16 +20,19 @@
 
             </article>
     </div>
+    </div>
 {% endfor  %}
 
 {% if page.has_previous %}
 <a href="?page={{page.previous_page_number}}&order={{ order }}">previous</a>
 {% endif %}
 
+<div class="PageNav" id="StaticPageNav">
 |{{page.number}}|
 
 {% if page.has_next %}
 <a href="?page={{page.next_page_number}}&order={{ order }}">next</a>
 {% endif %}
-
+</div>
+</div>
 {% endblock %}

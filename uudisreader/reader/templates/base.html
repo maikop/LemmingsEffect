@@ -1,31 +1,71 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en">
-<head>
-    <title>UUDISREADER IN HTML5</title>
-    <meta charset = "utf-8" />
-    
-    <link rel="stylesheet" href="/static/css/styles.css" type="text/css"/>
-    <meta name="viewport content ="width-device-width, initial-scale=1.0">    
-</head>
+<!DOCTYPE html>
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">  vahetasin html5 vastu, kuna muidu on javascript async veana kirjas -->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0' name='viewport'>
+        <title>Uudised</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css">
+        <link rel="stylesheet" href="/static/css/styles.css" type="text/css"/>
+        <!--[if lt IE 9]>
+        <link rel="stylesheet" type="text/css" href="css/ietweaks.css" />
+        <![endif]-->
+        <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script async type='text/javascript' src='/static/javascript/javascript.js'></script>
+         <!--Siia panna hiljem if blokk, kui vaja laadida see javascript-->
+        <script async type="text/javascript" src="/static/javascript/scroll.js"></script>
+        
+    </head>
+    <body id="NO_JS">
+        <div id="Header">
+            <div id="Title">
+                <!--[if !IE 9]><!-->
+                <object data="/static/images/logo.svg" type="image/svg+xml" class="svg">
+                <!--<![endif]-->
+                    <img src="/static/images/logo.png" alt="LOGO">
+                <!--[if !IE 9]><!-->
+                </object>
+                <!--<![endif]-->
+            </div>
+        </div>
+        <div id="HeaderMenu">
+            <div id="movingLogo">
+            </div>
+            <div id="HeaderCenterMenu" class="clearfix menu">
+                <a href="#" id="headerMenuButton">Menüü</a>
+                <span id="LeftButton"><a href="#">&lt;</a></span>
+                <ul id="Navigation" class="clearfix">
+                    <li><a href="index.html">Esileht</a></li>
+                    <li><a href="index.html">Eesti</a></li>
+                    <li><a href="index.html">Sakkide Placeholder</a></li>
+                    <li><a href="index.html">Esileht</a></li>
+                    <li><a href="index.html">Eesti</a></li>
+                    <li><a href="index.html">Sakkide Placeholder</a></li>
+                    <li><a href="index.html">Esileht</a></li>
+                    <li><a href="index.html">Eesti</a></li>
+                    <li><a href="index.html">Sakkide Placeholder</a></li>
+                    <li><a href="index.html">Esileht</a></li>
+                    <li><a href="index.html">Eesti</a></li>
+                    <li><a href="index.html">Sakkide Placeholder</a></li>
+                    <li><a href="index.html">Esileht</a></li>
+                    <li><a href="index.html">Eesti</a></li>
+                    <li><a href="index.html">Sakkide Placeholder</a></li>
+                </ul>
+                <span id="RightButton"><a href="#">&gt;</a></span>
+            </div>
+            <div id="HeaderRightMenu" class="menu">
+                <ul id="RightNav" class="clearfix">
+                    <li><a href="index.html">Raadio</a></li>
+                    <li><a href="index.html">Meldi</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="Content">
 
-<body class="body">
-
-    <header class="mainhead">
-        <img src="/static/img/mainlogo.png" width="700" height="144">
-        <nav><ul>
-            <li class = "active"><a href="?order=-id">Top</a></li>
-            <li><a href='?order=published'>Uued</a></li>
-            <li><a href='?order=-published'>vanad</a></li>
-            <li><a href='?order=title'>Tähestik</a></li>
-        <ul></nav>   
-    </header>    
-
-    
-    {% block content %}
-    {% endblock %}
-
-    <footer class="mainFooter">
-        <p>silly copyright</p>
-    </footer>
-</body>
+                    {% block content %}
+                    {% endblock %}
+            
+            <div id="load" style="display:none;"><center>Laeb ...</center></div>
+        </div>
+    </body>
 </html>
