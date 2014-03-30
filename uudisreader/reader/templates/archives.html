@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-
-{% for uudised in object_list %}
-
-<p><a href="/blog/{{uudised.id}}"> {{uudised.Title}}</a><p>
-
-{% endfor  %}
-{% endblock %}

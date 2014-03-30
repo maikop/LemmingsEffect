@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for uudisreader project.
 
@@ -10,6 +11,29 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import djcelery
+from datetime import timedelta
+
+djcelery.setup_loader()
+
+# The default Django db scheduler
+BROKER_URL = 'amqp://'
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+CELERYBEAT_SCHEDULE = {
+    'add-every-5-minutes': {
+        'task': 'tasks.updateRSS',
+        'schedule': timedelta(seconds=300),
+        'args': (16, 16)
+    },
+}
+CELERY_TIMEZONE = 'UTC'
+# The backend used to store task results - because we're going to be 
+CELERY_IMPORTS = ("tasks", )
+CELERY_ALWAYS_EAGER = True
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -37,6 +61,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'reader',
+    'djcelery',
+    'kasutaja',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -46,6 +72,16 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS =(
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages"
 )
 
 ROOT_URLCONF = 'uudisreader.urls'
@@ -83,8 +119,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+# One Week and one second for static files
+CACHE_MIDDLEWARE_SECONDS = 604801
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
      os.path.join(BASE_DIR, "static"),
 )
