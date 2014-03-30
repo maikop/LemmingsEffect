@@ -153,8 +153,16 @@ a:hover, a:active {
     z-index: 2;
     margin: auto;
     padding: 0px;
-    padding-right: 220px;
+    padding-right: 310px;
     width: 100%;
+}
+
+#HeaderRightMenu {
+    z-index: 2;
+    right: 20px;
+    position: absolute;
+    float: right;
+    top: 0;
 }
 
 #LeftButton, #RightButton{
@@ -199,14 +207,6 @@ a:hover, a:active {
     width: 9000px;
     overflow: hidden;
     position: relative;
-}
-
-#HeaderRightMenu {
-    z-index: 2;
-    right: 20px;
-    position: absolute;
-    float: right;
-    top: 0;
 }
 
 #ContentMenu {

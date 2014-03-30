@@ -17,13 +17,22 @@ from datetime import timedelta
 djcelery.setup_loader()
 
 # The default Django db scheduler
-BROKER_URL = 'django://'
+BROKER_URL = 'amqp://'
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+#CELERYBEAT_SCHEDULE = {
+#    'add-every-30-seconds': {
+#        'task': 'tasks.updateRSS',
+#        'schedule': timedelta(seconds=30),
+#        'args': (16, 16)
+#    },
+#}
 CELERY_TIMEZONE = 'UTC'
 # The backend used to store task results - because we're going to be 
 CELERY_IMPORTS = ("tasks", )
 CELERY_ALWAYS_EAGER = True
-
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
