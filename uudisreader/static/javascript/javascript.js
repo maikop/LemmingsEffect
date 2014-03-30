@@ -227,12 +227,17 @@ $(window).load(function () {
         
         //Hash kõigile linkidele otsa!
         function hashLinks(){
-	        var links = document.getElementsByTagName('a');
-			for(var i = 0; i < links.length; i++) {
-			    var link = links[i],
-			    	end = (link.href.indexOf('#'));
-			    link.href = link.href.slice(0, end) + location.hash;
-
+        	for(var j = 0; j < $('.menu').length; j++){
+		        var links = $('.menu')[j].getElementsByTagName('a');   
+				for(var i = 0; i < links.length; i++) {
+				    var link = links[i],
+				    	end = (link.href.indexOf('#'));
+				   	if (end < 0) {
+				   		end = (link.href).length;
+				   	}
+				    link.href = link.href.slice(0, end) + location.hash;
+	
+				}
 			}
 		}
 		hashLinks();        
