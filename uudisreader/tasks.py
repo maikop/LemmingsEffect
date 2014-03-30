@@ -3,5 +3,5 @@ from rssreader import UpdateRSSFeeds
 
 @task()
 def updateRSS():
-    UpdateRSSFeeds
+    UpdateRSSFeeds()
     return None

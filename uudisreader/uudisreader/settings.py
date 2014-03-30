@@ -19,13 +19,13 @@ djcelery.setup_loader()
 # The default Django db scheduler
 BROKER_URL = 'amqp://'
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
-#CELERYBEAT_SCHEDULE = {
-#    'add-every-30-seconds': {
-#        'task': 'tasks.updateRSS',
-#        'schedule': timedelta(seconds=30),
-#        'args': (16, 16)
-#    },
-#}
+CELERYBEAT_SCHEDULE = {
+    'add-every-5-minutes': {
+        'task': 'tasks.updateRSS',
+        'schedule': timedelta(seconds=300),
+        'args': (16, 16)
+    },
+}
 CELERY_TIMEZONE = 'UTC'
 # The backend used to store task results - because we're going to be 
 CELERY_IMPORTS = ("tasks", )
