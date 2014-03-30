@@ -2,7 +2,7 @@ function getUrlData (searchfor) {
     searchfor = searchfor + '=';
     var pathname = window.location.search,
         start = pathname.indexOf(searchfor) + searchfor.length,
-        end = (pathname.slice(start)).indexOf('&') + start
+        end = (pathname.slice(start)).indexOf('&') + start;
     if (end < start){
         end = pathname.length;
     }
@@ -13,7 +13,7 @@ function getUrlData (searchfor) {
 // Loadlock ei luba topelt laadida
 var page = (parseInt(getUrlData('page'))+1) || 2,
     order = getUrlData('order'),
-    loadLock = false
+    loadLock = false;
 $(window).scroll(function()
 {
     if(($(window).scrollTop() == $(document).height() - $(window).height()) && loadLock == false)

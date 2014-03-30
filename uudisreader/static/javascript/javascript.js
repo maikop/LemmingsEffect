@@ -224,11 +224,23 @@ $(window).load(function () {
             VtabsRealWidth += settings.buttonwidth;
             return VtabsRealWidth;
         }
+        
+        //Hash kõigile linkidele otsa!
+        function hashLinks(){
+	        var links = document.getElementsByTagName('a');
+			for(var i = 0; i < links.length; i++) {
+			    var link = links[i],
+			    	end = (link.href.indexOf('#'));
+			    link.href = link.href.slice(0, end) + location.hash;
+
+			}
+		}
+		hashLinks();        
         function getHashData (searchfor) {
             searchfor = searchfor + '=';
             var pathname = window.location.hash,
                 start = pathname.indexOf(searchfor) + searchfor.length,
-                end = (pathname.slice(start)).indexOf('#') + start
+                end = (pathname.slice(start)).indexOf('#') + start;
             if (end < start){
                 end = pathname.length;
             }
@@ -239,7 +251,7 @@ $(window).load(function () {
             searchfor = searchfor + '=';
             var pathname = window.location.hash,
                 start = pathname.indexOf(searchfor) + searchfor.length,
-                end = (pathname.slice(start)).indexOf('#') + start
+                end = (pathname.slice(start)).indexOf('#') + start;
             if (start < searchfor.length){
                 window.location.hash = ((pathname + searchfor)+'');
                 pathname = window.location.hash;
@@ -249,6 +261,7 @@ $(window).load(function () {
                 end = pathname.length;
             }
             location.hash = (pathname.slice(0, start) + value + pathname.slice(end, pathname.length));
+            hashLinks();
         }
         $(".moveableContainer").css({width: tabsRealWidth() + 'px'});
         function hideWrapper() {
@@ -323,11 +336,11 @@ $(window).load(function () {
             if (currentPosition + offset >= 0) {
                 moveable.stop().animate({
                     left: '0'
-                }, settings.speed, function complete () {setHashData ('tab', parseInt(moveable.css('left'), 10))});
+                }, settings.speed, function complete () {setHashData ('tab', parseInt(moveable.css('left'), 10));});
             } else {
                 moveable.stop().animate({
                     left: currentPosition + offset + 'px'
-                }, settings.speed, function complete () {setHashData ('tab', parseInt(moveable.css('left'), 10))});
+                }, settings.speed, function complete () {setHashData ('tab', parseInt(moveable.css('left'), 10));});
             }
             if (tabsRealWidth() <= parseInt($(".fixedContainer").css('width'), 10)) {
                 $('#RightButton').css({
