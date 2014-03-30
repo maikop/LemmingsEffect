@@ -59,7 +59,7 @@ $(window).scroll(function()
         url: "empty/?page=" + page +'&order=' + order,
         success: function(html)
         {
-            if(html)
+            if(html.length > 5)
             {
                 $("#Headlines").append(html);
                 $('div#load').hide();
@@ -67,7 +67,7 @@ $(window).scroll(function()
                 loadLock = false;
             }else
             {
-                $('div#load').html('<center>No more posts to show.</center>');
+                $('div#load').html('Lõpp');
             }
         }
         });

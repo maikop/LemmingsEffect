@@ -17,6 +17,14 @@ a {
     text-decoration:none;  
 }
 
+.PageNav {
+    text-align:center;
+}
+
+#load{
+    text-align:center;
+}
+
 a:link, a:visited{
     color:#1a94d6
 }
@@ -41,10 +49,6 @@ a:hover, a:active {
     height: 40px;
 }
 
-#NO_JS .menu ul {
-    height: auto;
-}
-
 .menu li {
     display: inline;
     float: left;
@@ -64,10 +68,6 @@ a:hover, a:active {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-}
-
-#NO_JS .menu li a {
-    border: 1px solid #aaaaaa;
 }
 
 .menu li:first-child a {
@@ -103,10 +103,6 @@ a:hover, a:active {
     background-color: #ffca80;
 }
 
-#NO_JS #Header {
-    position: relative;
-}
-
 #Title {
     float: left;
     width: 292px;
@@ -132,10 +128,7 @@ a:hover, a:active {
     /*Väldib animatsiooni ajal scrollbari ilmumist */
     overflow: hidden;
     background-color: #ffca80;
-    overflow:visible;
 }
-
-
 
 #HeaderCenterMenu ul {
     margin-left: 0px;
@@ -282,6 +275,15 @@ a:hover, a:active {
     position: relative;
     top: 0px;
     width:100%;
+    height: auto;
+}
+#NO_JS #Header {
+    position: relative;
+}
+#NO_JS .menu li a {
+    border: 1px solid #aaaaaa;
+}
+#NO_JS .menu ul {
     height: auto;
 }
 
