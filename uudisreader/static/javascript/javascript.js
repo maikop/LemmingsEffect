@@ -4,6 +4,45 @@
 /*global window, $, jQuery*/
 /*jslint unparam: true*/
 /*global document: false */
+
+//IE8 indexOf fix
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
+        "use strict";
+        if (this == null) {
+            throw new TypeError();
+        }
+        var t = Object(this);
+        var len = t.length >>> 0;
+        if (len === 0) {
+            return -1;
+        }
+        var n = 0;
+        if (arguments.length > 1) {
+            n = Number(arguments[1]);
+            if (n != n) { // shortcut for verifying if it's NaN
+                n = 0;
+            } else if (n != 0 && n != Infinity && n != -Infinity) {
+                n = (n > 0 || -1) * Math.floor(Math.abs(n));
+            }
+        }
+        if (n >= len) {
+            return -1;
+        }
+        var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
+        for (; k < len; k++) {
+            if (k in t && t[k] === searchElement) {
+                return k;
+            }
+        }
+        return -1;
+    }
+}
+
+
+
+
+
 //Muutujad
 var nameSpace = {
     lukus: false,
@@ -185,6 +224,32 @@ $(window).load(function () {
             VtabsRealWidth += settings.buttonwidth;
             return VtabsRealWidth;
         }
+        function getHashData (searchfor) {
+            searchfor = searchfor + '=';
+            var pathname = window.location.hash,
+                start = pathname.indexOf(searchfor) + searchfor.length,
+                end = (pathname.slice(start)).indexOf('#') + start
+            if (end < start){
+                end = pathname.length;
+            }
+            return (pathname.slice(start, end));
+        }
+        settings.locationsave = getHashData ('tab');
+        function setHashData (searchfor, value) {
+            searchfor = searchfor + '=';
+            var pathname = window.location.hash,
+                start = pathname.indexOf(searchfor) + searchfor.length,
+                end = (pathname.slice(start)).indexOf('#') + start
+            if (start < searchfor.length){
+                window.location.hash = ((pathname + searchfor)+'');
+                pathname = window.location.hash;
+                start = pathname.length;
+            }
+            if (end < start){
+                end = pathname.length;
+            }
+            location.hash = (pathname.slice(0, start) + value + pathname.slice(end, pathname.length));
+        }
         $(".moveableContainer").css({width: tabsRealWidth() + 'px'});
         function hideWrapper() {
             if (menubutton.is(':hidden')) {
@@ -258,11 +323,11 @@ $(window).load(function () {
             if (currentPosition + offset >= 0) {
                 moveable.stop().animate({
                     left: '0'
-                }, settings.speed);
+                }, settings.speed, function complete () {setHashData ('tab', parseInt(moveable.css('left'), 10))});
             } else {
                 moveable.stop().animate({
                     left: currentPosition + offset + 'px'
-                }, settings.speed);
+                }, settings.speed, function complete () {setHashData ('tab', parseInt(moveable.css('left'), 10))});
             }
             if (tabsRealWidth() <= parseInt($(".fixedContainer").css('width'), 10)) {
                 $('#RightButton').css({
@@ -290,9 +355,9 @@ $(window).load(function () {
             if (tabBarWidth - currentPosition < tabsRealWidth()) {
                 moveable.stop().animate({
                     left: currentPosition - offset + 'px'
-                }, settings.speed);
+                }, settings.speed, function complete () {setHashData ('tab', parseInt(moveable.css('left'), 10))});
             }
-            if (tabsRealWidth() <= parseInt($(".fixedContainer").css('width'), 10)) {
+            if (tabsRealWidth() <= parseInt($(".fixedContainer").css('tab'), 10)) {
                 $('#RightButton').css({
                     visibility: 'hidden'
                 });
