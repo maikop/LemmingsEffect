@@ -12,6 +12,9 @@ urlpatterns = patterns('',
     #Praegu ta viitab ainult vajalikule funktsioonile. 
     
     url(r'^empty/', 'reader.views.empty'),
+    url(r'^register/', 'reader.views.KasutajaRegistration'),
+    url(r'^login/', 'reader.views.LoginRequest'),
+    url(r'^logout/', 'reader.views.LogoutRequest'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'reader.views.index'),
 )
