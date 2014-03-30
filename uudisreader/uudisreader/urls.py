@@ -14,4 +14,4 @@ urlpatterns = patterns('',
     url(r'^empty/', 'reader.views.empty'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'reader.views.index'),
-) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+)
