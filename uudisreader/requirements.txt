@@ -12,3 +12,4 @@ amqp==1.4.4
 celery==3.1.10
 django-celery==3.1.9
 http://math.ut.ee/~ppriit/django-compressor-django-compressor-aba8c5f.tar.gz
+django-allauth==0.12.0
