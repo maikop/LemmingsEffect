@@ -22,4 +22,3 @@ urlpatterns = patterns('',
                            template_name="archives.html")),                           
                          
 )
-

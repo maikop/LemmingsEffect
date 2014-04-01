@@ -1,3 +1,4 @@
+{% load compress %}
 <!DOCTYPE html>
 <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">  vahetasin html5 vastu, kuna muidu on javascript async veana kirjas -->
 <html>
@@ -5,14 +6,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0' name='viewport'>
         <title>Uudised</title>
+        {% compress css %}
         <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css">
+        {% endcompress %}
         <!--[if lt IE 9]>
         <link rel="stylesheet" type="text/css" href="css/ietweaks.css" />
         <![endif]-->
-        <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        {% compress js %}
+        <script type='text/javascript' src="/static/javascript/jquery.min.js"></script>
         <script async type='text/javascript' src='/static/javascript/javascript.js'></script>
+        <script async type="text/javascript" src="/static/javascript/notification.js"></script>
         <!--Siia panna hiljem if blokk, kui vaja laadida see javascript-->
         <script async type="text/javascript" src="/static/javascript/scroll.js"></script>
+        {% endcompress %}
     </head>
     <body id="NO_JS">
         <div id="Header">
@@ -24,6 +30,9 @@
                 <!--[if !IE 9]><!-->
                 </object>
                 <!--<![endif]-->
+            </div>
+            <div id="new">
+            Event stream:<br>
             </div>
         </div>
         <div id="HeaderMenu">
@@ -56,7 +65,7 @@
                     <li><a href="index.html">Raadio</a></li>
                     <li>{% if user.is_authenticated %}<a href="/logout/">Logout</a></li>
                     {% else %}<li><a href="/login/">Login</a></li>
-                    <li><a href="/register/">Registreeru</a>{% endif %}</li>
+                    <li><a href="/register/">Registreeru</a></li>{% endif %}
                 </ul>
             </div>
         </div>
@@ -65,7 +74,7 @@
                     {% block content %}
                     {% endblock %}
 
-            <div id="load" style="display:none;"><center>Laeb ...</center></div>
+            <div id="load" style="display:none;">Laeb ...</div>
         </div>
     </body>
 </html>

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 import djcelery
 from datetime import timedelta
+import dj_database_url
 
 djcelery.setup_loader()
 
@@ -63,9 +64,11 @@ INSTALLED_APPS = (
 	'reader',
     'djcelery',
     'kasutaja',
+    "compressor",
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,7 +84,7 @@ TEMPLATE_CONTEXT_PROCESSORS =(
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages"
+    "django.contrib.messages.context_processors.messages",
 )
 
 ROOT_URLCONF = 'uudisreader.urls'
@@ -93,15 +96,16 @@ WSGI_APPLICATION = 'uudisreader.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
-	'default': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'uudised',
-        'USER': 'postgres',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
-    }
+        'NAME': 'dfbs575ed2p9dk',
+        'HOST': 'ec2-54-235-246-73.compute-1.amazonaws.com',
+        'PORT': 5432,
+        'USER': 'ghhbcaqxnzlylu',
+        'PASSWORD': 'ckViz-e0SmkQ1V7BvcbE87dPKi'
+  }
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -122,8 +126,44 @@ USE_TZ = True
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 # One Week and one second for static files
 CACHE_MIDDLEWARE_SECONDS = 604801
+
+# Parse database configuration from $DATABASE_URL
+
+DATABASES['default'] =  dj_database_url.config(default='postgres://ghhbcaqxnzlylu:ckViz-e0SmkQ1V7BvcbE87dPKi@ec2-54-235-246-73.compute-1.amazonaws.com:5432/dfbs575ed2p9dk')
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
+# Static asset configuration
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'static_root'
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles'
+
 STATICFILES_DIRS = (
-     os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static'),
 )
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_ENABLED = True
+COMPRESS_CSS_FILTERS = [
+    #creates absolute urls from relative ones
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    #css minimizer
+    'compressor.filters.cssmin.CSSMinFilter'
+]
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.JSMinFilter'
+]
+USE_ETAGS = True
+
+

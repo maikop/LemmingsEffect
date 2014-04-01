@@ -12,6 +12,8 @@ from django.template import RequestContext
 from kasutaja.forms import RegistrationForm, LoginForm
 from kasutaja.models import Kasutaja
 from django.contrib.auth import authenticate, login, logout
+from django.utils import simplejson
+
 
 # Create your views here.
 
@@ -107,9 +109,13 @@ def KasutajaRegistration(request):
                 context = {'form': form}
                 return render_to_response('register.html', context, context_instance=RequestContext(request))
 
+
+tagasi = '/'
+
 def LoginRequest(request):
+        global tagasi
         if request.user.is_authenticated():
-                return HttpResponseRedirect('/') #see peaks olema see elmine aadress
+                return HttpResponseRedirect(tagasi) #see peaks olema see elmine aadress
         if request.method == 'POST':
                 form = LoginForm(request.POST)
                 if form.is_valid():
@@ -118,17 +124,23 @@ def LoginRequest(request):
                         kasutaja = authenticate(username=username, password=password)
                         if kasutaja is not None:
                                 login(request, kasutaja)
-                                return HttpResponseRedirect('/')
+                                return HttpResponseRedirect(tagasi)
                         else:
                                 return render_to_response('login.html', {'form': form}, context_instance=RequestContext(request))
                 else:
                         return render_to_response('login.html', {'form': form}, context_instance=RequestContext(request))
         else:
                 ''' user is not submitting the form, show the login form '''
+                tagasi = request.META.get('HTTP_REFERER', '/')
                 form = LoginForm()
                 context = {'form': form}
                 return render_to_response('login.html', context, context_instance=RequestContext(request))
 
 def LogoutRequest(request):
         logout(request)
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    
+    
+def push(request):
+        response = 'data: ' + str(Uudised.objects.count()) + '\n\n'
+        return HttpResponse(response,content_type='text/event-stream')

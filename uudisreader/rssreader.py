@@ -2,17 +2,18 @@
 import feedparser
 import psycopg2
 import re #regular expressions, lubab korralikult teksti töödelda
-
+import uudisreader.settings
+database=uudisreader.settings.DATABASES
 
 
 #Teeme funktsiooniks, et saaks teisest failist jooksutada
 def UpdateRSSFeeds():
 	#loome ühenduse andmebaasiga
 	db = psycopg2.connect(
-		host = 'localhost',
-		database = 'uudised',
-		user = 'postgres',
-		password = ''
+		host = database['default']['HOST'],
+		database = database['default']['NAME'],
+		user = database['default']['USER'],
+		password = database['default']['PASSWORD']
 	)
 	cursor = db.cursor()
 	
@@ -24,7 +25,6 @@ def UpdateRSSFeeds():
 	def ltgtrem(word):
 		word = re.sub('<img[^<]+?>', '', word)
 		return word.replace('<', '').replace('>', '')
-	
 	#Eemaldab SQL-i jaoks " ja '
 	def qrem(word):
 		return ltgtrem(word.replace('"','&quot;').replace("'","&#39;"))
