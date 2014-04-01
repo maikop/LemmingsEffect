@@ -18,11 +18,22 @@ from django.utils import simplejson
 # Create your views here.
 
 def index(request):
+   
+    paper = request.GET.get('tab', '')
+    paper_order_list = ["Postimees", "Delfi", "All"]
+    if paper not in paper_order_list:
+        paper_order=paper_order_list[1]      
+       
     #Järjestuse valik
     page_order = request.GET.get('order', '')
     page_order_list = ["id", "-id", "published", "-published", "title", "-title"]
     if page_order not in page_order_list:
-        page_order=page_order_list[1]
+        page_order=page_order_list[1]  
+    category = request.GET.get('kateg', '')
+    page_order_list = ["id", "-id", "published", "-published", "title", "-title"]
+    if page_order not in page_order_list:
+        page_order=page_order_list[1]        
+              
     #Valib esimese jupi.
     page_num = int(request.GET.get('page', 1))
     chunk_max = Uudised.objects.count()
@@ -41,9 +52,16 @@ def index(request):
     elif page_num > 1 and page_num < max_pages:
         fake_num = 2
     elif page_num >= max_pages:
-        fake_num = 3
+        fake_num = 3  
+        
     #Teeb query
-    queryset=Uudised.objects.all().order_by(page_order)[chunk_start:chunk_stop]
+    queryset=Uudised.objects.all().order_by("-id")[chunk_start:chunk_stop]
+     
+    if paper == "All":
+        queryset=Uudised.objects.all().filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
+    if paper =="Postimees" or paper =="Delfi":
+        queryset=Uudised.objects.all().filter(leht=paper).filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
+    
     #Teeb ta 5-objektisteks juppideks
     paginator = Paginator(queryset, per_page)
     paginator._num_pages = max_pages
@@ -54,11 +72,21 @@ def index(request):
 
 
 def empty(request):
+    paper = request.GET.get('tab', '')
+    paper_order_list = ["Postimees", "Delfi", "All"]
+    if paper not in paper_order_list:
+        paper_order=paper_order_list[1]      
+       
     #Järjestuse valik
     page_order = request.GET.get('order', '')
     page_order_list = ["id", "-id", "published", "-published", "title", "-title"]
     if page_order not in page_order_list:
-        page_order=page_order_list[1]
+        page_order=page_order_list[1]  
+    category = request.GET.get('kateg', '')
+    page_order_list = ["id", "-id", "published", "-published", "title", "-title"]
+    if page_order not in page_order_list:
+        page_order=page_order_list[1]        
+              
     #Valib esimese jupi.
     page_num = int(request.GET.get('page', 1))
     chunk_max = Uudised.objects.count()
@@ -77,9 +105,16 @@ def empty(request):
     elif page_num > 1 and page_num < max_pages:
         fake_num = 2
     elif page_num >= max_pages:
-        fake_num = 3
+        fake_num = 3  
+        
     #Teeb query
-    queryset=Uudised.objects.all().order_by(page_order)[chunk_start:chunk_stop]
+    queryset=Uudised.objects.all().order_by("-id")[chunk_start:chunk_stop]
+     
+    if paper == "All":
+        queryset=Uudised.objects.all().filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
+    if paper =="Postimees" or paper =="Delfi":
+        queryset=Uudised.objects.all().filter(leht=paper).filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
+    
     #Teeb ta 5-objektisteks juppideks
     paginator = Paginator(queryset, per_page)
     paginator._num_pages = max_pages
