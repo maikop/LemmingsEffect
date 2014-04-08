@@ -1,18 +1,5 @@
 {% block content %}
-{% for uudised in page %}
-
-    <div class = "reader_body">
-    <div class = "uudised_meta">
-    </div>
-            <article>
-            <h3><a href="{{uudised.link}}">{{ uudised.title }}</a></h3>
-            <i><p>{{uudised.published}}</p></i>
-
-            <p>{{ uudised.description |safe }}</p>
-
-            </article>
-    </div>
-{% endfor  %}
+{% include "uudisblock.html" %}
 
 {% if page.has_next %}
 <div class="PageNav">

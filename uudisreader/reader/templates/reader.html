@@ -2,37 +2,24 @@
 {% block content %}
 <div id="ContentMenu" class="menu">
                 <ul id="ContentNav">
-                    <li class = "active"><a href="?order=-id">Top</a></li>
-                    <li><a href='?order=published'>Uued</a></li>
-                    <li><a href='?order=-published'>vanad</a></li>
-                    <li><a href='?order=title'>Tähestik</a></li>
+                    <li class = "active"><a href="?tab={{ tab }}&amp;kateg={{ kategooria }}&amp;order=-id">Top</a></li>
+                    <li><a href="?tab={{ tab }}&amp;kateg={{ kategooria }}&amp;order=-published">Uued</a></li>
+                    <li><a href="?tab={{ tab }}&amp;kateg={{ kategooria }}&amp;order=published">Vanad</a></li>
+                    <li><a href="?tab={{ tab }}&amp;kateg={{ kategooria }}&amp;order=title">Tähestik</a></li>
                 </ul>
 </div>
 <div id="Headlines">
-{% for uudised in page %}
-    <div class = "reader_body">
-    <div class = "uudised_meta">
-            <article>
-            <h3><a href="{{uudised.link}}">{{ uudised.title }}</a></h3>
-            <p><i>{{uudised.published}}</i></p>
-
-            <p>{{ uudised.description |safe }}</p>
-
-            </article>
-    </div>
-    </div>
-{% endfor  %}
-
+{% include "uudisblock.html" %}
 <div class="PageNav menu" id="StaticPageNav">
 
 {% if page.has_previous %}
-<a href="?page={{page.previous_page_number}}&amp;order={{ order }}">previous</a>
+<a href="?page={{page.previous_page_number}}&amp;tab={{ tab }}&amp;kateg={{ kategooria }}&amp;order={{ order }}">&lt;Eelmine</a>
 {% endif %}
 
-|{{page.number}}|
+{{page.number}} &#47; {{page.paginator.num_pages}}
 
 {% if page.has_next %}
-<a href="?page={{page.next_page_number}}&amp;order={{ order }}">next</a>
+<a href="?page={{page.next_page_number}}&amp;tab={{ tab }}&amp;kateg={{ kategooria }}&amp;order={{ order }}">Järgmine&gt;</a>
 {% endif %}
 
 </div>

@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from reader.models import Uudised
+from reader.models import Lehed, Lehtuudis
 from django.template import Context, loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import math
@@ -13,114 +14,136 @@ from kasutaja.forms import RegistrationForm, LoginForm
 from kasutaja.models import Kasutaja
 from django.contrib.auth import authenticate, login, logout
 from django.utils import simplejson
+from django.views.decorators.cache import cache_control
+
+from django.contrib.staticfiles.views import serve
 
 
 # Create your views here.
 
+lehed=Lehed.objects.all().order_by("-name")
+kategooriad = Uudised.objects.values_list('kategooria').distinct()
+
+
 def index(request):
-   
     paper = request.GET.get('tab', '')
-    paper_order_list = ["Postimees", "Delfi", "All"]
+    paper_order_list = ["All"] + [i[0] for i in (Lehed.objects.values_list('name'))]
     if paper not in paper_order_list:
-        paper_order=paper_order_list[1]      
+        paper=paper_order_list[0]
        
     #Järjestuse valik
     page_order = request.GET.get('order', '')
     page_order_list = ["id", "-id", "published", "-published", "title", "-title"]
     if page_order not in page_order_list:
-        page_order=page_order_list[1]  
+        page_order=page_order_list[3]  
     category = request.GET.get('kateg', '')
-    page_order_list = ["id", "-id", "published", "-published", "title", "-title"]
-    if page_order not in page_order_list:
-        page_order=page_order_list[1]        
+    category_list = [ "All"] + [i[0] for i in kategooriad]  #lae päris kategooriate list andmebaasist, pannes esimeseks tühjad jutumärgid
+    if category not in category_list:
+        category=category_list[0]        
               
     #Valib esimese jupi.
     page_num = int(request.GET.get('page', 1))
-    chunk_max = Uudised.objects.count()
     #Jagub kolmega (praegune leht, uus leht ja vana leht)
     chunk_size = 30
     #Siis saab jätta next ja prev nupud
     per_page = chunk_size/3
-    #Viimane lehekülg
-    max_pages = math.floor(chunk_max / per_page)
     chunk_stop = (page_num * per_page) + per_page
+    if page_num == 1:
+        chunk_stop = chunk_size
     chunk_start = chunk_stop - chunk_size
+    #Teeb query
+    queryset=Lehtuudis.objects.all().order_by("-id")[chunk_start:chunk_stop]
+     
+    if paper == "All" and category=="All":
+        queryset=Lehtuudis.objects.all().order_by(page_order)[chunk_start:chunk_stop]
+        chunk_max = Uudised.objects.count()
+    elif paper == "All":
+        queryset=Lehtuudis.objects.all().filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
+        chunk_max = Uudised.objects.filter(kategooria=category).count()
+    elif category == "All":
+        queryset=Uudised.objects.all().filter(leht=paper).order_by(page_order)[chunk_start:chunk_stop]
+        chunk_max = Uudised.objects.filter(leht=paper).count()
+    else:
+        queryset=Uudised.objects.all().filter(leht=paper).filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
+        chunk_max = Uudised.objects.filter(leht=paper).filter(kategooria=category).count()
+    
+    #Viimane lehekülg
+    max_pages = math.ceil(chunk_max / per_page)
     fake_num = 1
     if page_num == 1:
         chunk_stop = chunk_size
         chunk_start = 0
-    elif page_num > 1 and page_num < max_pages:
+    elif page_num > 1 and page_num <= max_pages:
         fake_num = 2
-    elif page_num >= max_pages:
+    elif page_num > max_pages:
         fake_num = 3  
-        
-    #Teeb query
-    queryset=Uudised.objects.all().order_by("-id")[chunk_start:chunk_stop]
-     
-    if paper == "All":
-        queryset=Uudised.objects.all().filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
-    if paper =="Postimees" or paper =="Delfi":
-        queryset=Uudised.objects.all().filter(leht=paper).filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
+    
     
     #Teeb ta 5-objektisteks juppideks
     paginator = Paginator(queryset, per_page)
     paginator._num_pages = max_pages
     page=paginator.page(fake_num)
     page.number = page_num
-
-    return render_to_response("reader.html", {'page':page, 'order':page_order}, context_instance=RequestContext(request))
+    return render_to_response("reader.html", {'kategooriad':kategooriad, 'lehed':lehed, 'page':page, 'order':page_order, 'kategooria': category, 'tab': paper}, context_instance=RequestContext(request))
 
 
 def empty(request):
     paper = request.GET.get('tab', '')
-    paper_order_list = ["Postimees", "Delfi", "All"]
+    paper_order_list = ["All"] + [i[0] for i in (Lehed.objects.values_list('name'))]
     if paper not in paper_order_list:
-        paper_order=paper_order_list[1]      
+        paper=paper_order_list[0]
        
     #Järjestuse valik
     page_order = request.GET.get('order', '')
     page_order_list = ["id", "-id", "published", "-published", "title", "-title"]
     if page_order not in page_order_list:
-        page_order=page_order_list[1]  
+        page_order=page_order_list[3]  
     category = request.GET.get('kateg', '')
-    page_order_list = ["id", "-id", "published", "-published", "title", "-title"]
-    if page_order not in page_order_list:
-        page_order=page_order_list[1]        
+    category_list = [ "All"] + [i[0] for i in kategooriad]  #lae päris kategooriate list andmebaasist, pannes esimeseks tühjad jutumärgid
+    if category not in category_list:
+        category=category_list[0]        
               
     #Valib esimese jupi.
     page_num = int(request.GET.get('page', 1))
-    chunk_max = Uudised.objects.count()
     #Jagub kolmega (praegune leht, uus leht ja vana leht)
     chunk_size = 30
     #Siis saab jätta next ja prev nupud
     per_page = chunk_size/3
-    #Viimane lehekülg
-    max_pages = math.floor(chunk_max / per_page)
     chunk_stop = (page_num * per_page) + per_page
+    if page_num == 1:
+        chunk_stop = chunk_size
     chunk_start = chunk_stop - chunk_size
+    #Teeb query
+    queryset=Lehtuudis.objects.all().order_by("-id")[chunk_start:chunk_stop]
+     
+    if paper == "All" and category=="All":
+        queryset=Lehtuudis.objects.all().order_by(page_order)[chunk_start:chunk_stop]
+        chunk_max = Uudised.objects.count()
+    elif paper == "All":
+        queryset=Lehtuudis.objects.all().filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
+        chunk_max = Uudised.objects.filter(kategooria=category).count()
+    elif category == "All":
+        queryset=Uudised.objects.all().filter(leht=paper).order_by(page_order)[chunk_start:chunk_stop]
+        chunk_max = Uudised.objects.filter(leht=paper).count()
+    else:
+        queryset=Uudised.objects.all().filter(leht=paper).filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
+        chunk_max = Uudised.objects.filter(leht=paper).filter(kategooria=category).count()
+    
+    #Viimane lehekülg
+    max_pages = math.ceil(chunk_max / per_page)
     fake_num = 1
     if page_num == 1:
         chunk_stop = chunk_size
         chunk_start = 0
-    elif page_num > 1 and page_num < max_pages:
+    elif page_num > 1 and page_num <= max_pages:
         fake_num = 2
-    elif page_num >= max_pages:
+    elif page_num > max_pages:
         fake_num = 3  
-        
-    #Teeb query
-    queryset=Uudised.objects.all().order_by("-id")[chunk_start:chunk_stop]
-     
-    if paper == "All":
-        queryset=Uudised.objects.all().filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
-    if paper =="Postimees" or paper =="Delfi":
-        queryset=Uudised.objects.all().filter(leht=paper).filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
-    
     #Teeb ta 5-objektisteks juppideks
     paginator = Paginator(queryset, per_page)
     paginator._num_pages = max_pages
     page=paginator.page(fake_num)
     page.number = page_num
-
     return render_to_response("empty.html", {'page':page}, context_instance=RequestContext(request))
 
 
@@ -137,11 +160,11 @@ def KasutajaRegistration(request):
                         kasutaja.save()
                         return HttpResponseRedirect('/profile/')
                 else:
-                        return render_to_response('register.html', {'form': form}, context_instance=RequestContext(request))
+                        return render_to_response('register.html', {'kategooriad':kategooriad, 'lehed':lehed, 'form': form}, context_instance=RequestContext(request))
         else:
                 ''' user is not submitting the form, show them a blank registration form '''
                 form = RegistrationForm()
-                context = {'form': form}
+                context = {'form': form, 'kategooriad':kategooriad, 'lehed':lehed}
                 return render_to_response('register.html', context, context_instance=RequestContext(request))
 
 
@@ -161,21 +184,32 @@ def LoginRequest(request):
                                 login(request, kasutaja)
                                 return HttpResponseRedirect(tagasi)
                         else:
-                                return render_to_response('login.html', {'form': form}, context_instance=RequestContext(request))
+                                return render_to_response('login.html', {'kategooriad':kategooriad, 'lehed':lehed, 'form': form}, context_instance=RequestContext(request))
                 else:
-                        return render_to_response('login.html', {'form': form}, context_instance=RequestContext(request))
+                        return render_to_response('login.html', {'kategooriad':kategooriad, 'lehed':lehed, 'form': form}, context_instance=RequestContext(request))
         else:
                 ''' user is not submitting the form, show the login form '''
                 tagasi = request.META.get('HTTP_REFERER', '/')
                 form = LoginForm()
-                context = {'form': form}
+                context = {'form': form, 'kategooriad':kategooriad, 'lehed':lehed}
                 return render_to_response('login.html', context, context_instance=RequestContext(request))
 
 def LogoutRequest(request):
         logout(request)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def profile(request):
+	return HttpResponseRedirect('/')
     
-    
+  
+@cache_control(must_revalidate=True, max_age=1)
 def push(request):
         response = 'data: ' + str(Uudised.objects.count()) + '\n\n'
         return HttpResponse(response,content_type='text/event-stream')
+
+
+
+@cache_control(max_age=604801)
+def static(request, path):
+        return serve(request, path[6:])

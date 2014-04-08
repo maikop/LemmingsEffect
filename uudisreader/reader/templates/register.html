@@ -6,26 +6,26 @@
 {% if form.errors %}<p>Please correct the following fields:</p>{% endif %}
 <div class="register_div">
         {% if form.username.errors %}<p class="error">{{ form.username.errors }}</p>{% endif %}
-        <p><label for="id_username"{% if form.username.errors %} class="error"{% endif %}>Username:</label></p>
+        <p><label for="id_username"{% if form.username.errors %} class="error"{% endif %}>Kasutajanimi:</label></p>
         <p>{{ form.username }}</p>
 </div>
 <div class="register_div">
         {% if form.email.errors %}<p class="error">{{ form.email.errors }}</p>{% endif %}
-        <p><label for="id_email"{% if form.email.errors %} class="error"{% endif %}>Email:</label></p>
+        <p><label for="id_email"{% if form.email.errors %} class="error"{% endif %}>E-mail:</label></p>
         <p>{{ form.email }}</p>
 </div>
 <div class="register_div">
         {% if form.password.errors %}<p class="error">{{ form.password.errors }}</p>{% endif %}
-        <p><label for="id_password"{% if form.password.errors %} class="error"{% endif %}>Password:</label></p>
+        <p><label for="id_password"{% if form.password.errors %} class="error"{% endif %}>Parool:</label></p>
         <p>{{ form.password }}</p>
 </div>
 <div class="register_div">
         {% if form.password1.errors %}<p class="error">{{ form.password1.errors }}</p>{% endif %}
-        <p><label for="id_password1"{% if form.password1.errors %} class="error"{% endif %}>Verify Password:</label></p>
+        <p><label for="id_password1"{% if form.password1.errors %} class="error"{% endif %}>Kinnitage parool:</label></p>
         <p>{{ form.password1 }}</p>
 </div>
 
 
-<p><input type="submit" /></p>
+<p><input type="submit" value="Registreeri"/></p>
 </form>
 {% endblock %}

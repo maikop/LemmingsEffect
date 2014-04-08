@@ -1,0 +1,15 @@
+{% for uudised in page %}
+
+    <div class = "reader_body">
+    <div class = "uudised_meta">
+    </div>
+            <article>
+            <h3><a href="{{uudised.link}}">{{ uudised.title }}</a></h3>
+            <p><i>{{uudised.published |date:"l j E Y" |capfirst}} Kell {{uudised.published |date:"G:i"}}</i></p>
+
+            <p>{{ uudised.description |safe }}</p>
+
+			<p>({{ uudised.name }})</p>
+            </article>
+    </div>
+{% endfor  %}

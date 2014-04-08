@@ -117,7 +117,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'et-ee'
 
 TIME_ZONE = 'UTC'
 
@@ -132,7 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 # One Week and one second for static files
-CACHE_MIDDLEWARE_SECONDS = 604801
+CACHE_MIDDLEWARE_SECONDS = 54800
 
 # Parse database configuration from $DATABASE_URL
 

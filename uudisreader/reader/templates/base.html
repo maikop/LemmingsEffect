@@ -10,10 +10,12 @@
         <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css">
         {% endcompress %}
         <!--[if lt IE 9]>
-        <link rel="stylesheet" type="text/css" href="css/ietweaks.css" />
+        <link rel="stylesheet" type="text/css" href="/staticurl/static/css/ietweaks.css" />
         <![endif]-->
         {% compress js %}
         <script type='text/javascript' src="/static/javascript/jquery.min.js"></script>
+        <!-- IE8 fix -->
+        <script async type="text/javascript" src="/static/javascript/eventsourceie8.js"></script>
         <script async type='text/javascript' src='/static/javascript/javascript.js'></script>
         <script async type="text/javascript" src="/static/javascript/notification.js"></script>
         <!--Siia panna hiljem if blokk, kui vaja laadida see javascript-->
@@ -24,11 +26,13 @@
         <div id="Header">
             <div id="Title">
                 <!--[if !IE 9]><!-->
-                <object data="/static/images/logo.svg" type="image/svg+xml" class="svg">
+                <a href="/" class="svg">
+                <object data="/staticurl/static/images/logo.svg" type="image/svg+xml" class="svg">
                 <!--<![endif]-->
-                    <img src="/static/images/logo.png" alt="LOGO">
+                    <img src="/staticurl/static/images/logo.png" alt="LOGO">
                 <!--[if !IE 9]><!-->
                 </object>
+                </a>
                 <!--<![endif]-->
             </div>
             <div id="new">
@@ -37,30 +41,19 @@
         </div>
         <div id="HeaderMenu">
             <div id="movingLogo">
+            <a href="/" class="full_link"></a>
             </div>
             <div id="HeaderCenterMenu" class="clearfix menu">
                 <a href="#" id="headerMenuButton">Menüü</a>
                 <span id="LeftButton"><a href="#">&lt;</a></span>
-                <ul id="Navigation" class="clearfix">
-
-                    <li class = "active"><a href="?tab=Postimees&kateg=eesti&order=-id">Postimees</a></li>
-                    <li><a href="?tab=Delfi&kateg=välis&order=-id">Delfi</a></li>
-                    <li><a href="?tab=All&kateg=sport&order=-id">Spordiuudised</a></li>
-                    <li><a href="?tab=All&kateg=eesti&order=-id">Eesti</a></li>
-                    <li><a href="?tab=Postimees&kateg=välis&order=-id">Postimees välis</a></li>
-                    <li><a href="?tab=Delfi&kateg=välis&order=-id">Delfi</a></li>
-                    <li><a href="?tab=All&kateg=sport&order=-id">Spordiuudised</a></li>
-                    <li><a href="?tab=All&kateg=eesti&order=-id">Eesti</a></li>
-                    <li><a href="?tab=Postimees&kateg=välis&order=-id">Postimees välis</a></li>
-
-                </ul>
+                {% include "navigation.html" %}
                 <span id="RightButton"><a href="#">&gt;</a></span>
             </div>
             <div id="HeaderRightMenu" class="menu">
                 <ul id="RightNav" class="clearfix">
-                    <li><a href="index.html">Raadio</a></li>
-                    <li>{% if user.is_authenticated %}<a href="/logout/">Logout</a></li>
-                    {% else %}<li><a href="/login/">Login</a></li>
+                    <li><a href=http://uudisreader2.herokuapp.com>Raadio</a></li>
+                    <li>{% if user.is_authenticated %}<a href="/logout/">Välju</a></li>
+                    {% else %}<li><a href="/login/">Sisene</a></li>
                     <li><a href="/register/">Registreeru</a></li>{% endif %}
                 </ul>
             </div>

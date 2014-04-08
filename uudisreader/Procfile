@@ -1,0 +1,3 @@
+web: python uudisreader/manage.py collectstatic --noinput ; gunicorn uudisreader.wsgi:application
+celeryd: python manage.py celeryd
+celerybeat: python manage.py celerybeat

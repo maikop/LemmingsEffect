@@ -1,0 +1,9 @@
+<ul id="Navigation" class="clearfix">
+<li><a href="/?tab=All&amp;kateg=All&amp;order={{ order |urlencode}}">Kõik</a></li>
+{% for lehed in lehed %}
+<li><a href="/?tab={{ lehed |urlencode}}&amp;kateg={{ kategooria |urlencode}}&amp;order={{ order |urlencode}}">{{ lehed }}</a></li>
+{% endfor  %}
+{% for stuff in kategooriad %}
+<li><a href="/?tab={{ tab |urlencode}}&amp;kateg={{ stuff.0 |urlencode}}&amp;order={{ order |urlencode}}">{{ stuff.0 |capfirst}}</a></li>
+{% endfor %}
+</ul>

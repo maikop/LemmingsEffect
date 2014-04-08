@@ -6,18 +6,18 @@
 {% if form.errors %}<p>Please correct the following fields:</p>{% endif %}
 <div class="register_div">
         {% if form.username.errors %}<p class="error">{{ form.username.errors }}</p>{% endif %}
-        <p><label for="id_username"{% if form.username.errors %} class="error"{% endif %}>Username:</label></p>
+        <p><label for="id_username"{% if form.username.errors %} class="error"{% endif %}>Kasutajanimi:</label></p>
         <p>{{ form.username }}</p>
 </div>
 
 <div class="register_div">
         {% if form.password.errors %}<p class="error">{{ form.password.errors }}</p>{% endif %}
-        <p><label for="id_password"{% if form.password.errors %} class="error"{% endif %}>Password:</label></p>
+        <p><label for="id_password"{% if form.password.errors %} class="error"{% endif %}>Parool:</label></p>
         <p>{{ form.password }}</p>
 </div>
-
-                    <li><a href="/accounts/login/">Facebook login</a></li>
-
-<p><input type="submit"/></p>
+					<ul>
+                    <li><a href="/accounts/login/">Sisene Facebook kontoga</a></li>
+                    </ul>
+<p><input type="submit" value="Sisene"/></p>
 </form>
 {% endblock %}
