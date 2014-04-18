@@ -32,5 +32,7 @@ Database has been created and is available"
 Tabelite mudelid:
 
 uudisreader -> reader -> models
+
 ja
+
 uudisreder -> kasutaja -> models
