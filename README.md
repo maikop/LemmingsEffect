@@ -35,4 +35,4 @@ uudisreader -> reader -> models
 
 ja
 
-uudisreder -> kasutaja -> models
+uudisreader -> kasutaja -> models
