@@ -290,11 +290,9 @@ a.svg:after {
 
 
 #NO_JS #HeaderRightMenu {
-        position: absolute;
+        position: relative;
         margin-right: 20px;
         float: right;
-        top: -40px;
-        right: 0px;
     }
     
 #NO_JS #Content {

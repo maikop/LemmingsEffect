@@ -22,4 +22,5 @@ urlpatterns = patterns('',
     url(r'^staticurl/(?P<path>.*)$', 'reader.views.static'),
     url(r'^$', 'reader.views.index'),
     url(r'^profile/', 'reader.views.profile'),
+    url(r'^uudis/', 'reader.views.uudisbox'),
 ) + static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -4,12 +4,19 @@
     <div class = "uudised_meta">
     </div>
             <article>
-            <h3><a href="{{uudised.link}}">{{ uudised.title }}</a></h3>
+            <h3><a href="uudis/?a={{uudised.link}}">{{ uudised.title }}</a></h3>
             <p><i>{{uudised.published |date:"l j E Y" |capfirst}} Kell {{uudised.published |date:"G:i"}}</i></p>
 
             <p>{{ uudised.description |safe }}</p>
-
+			
+			{% if sulud %}
 			<p>({{ uudised.name }})</p>
+			{% endif %}
+			
+			{% if user.is_authenticated %} 
+			<p> Meldinutele salajane otselink: <a href="{{ uudised.link }}">{{ uudised.link }}</a></p>
+			{% endif %}
+			
             </article>
     </div>
 {% endfor  %}

@@ -1,0 +1,31 @@
+{% load compress %}
+<!DOCTYPE html>
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">  vahetasin html5 vastu, kuna muidu on javascript async veana kirjas -->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0' name='viewport'>
+        <title>Uudised</title>
+        {% compress css %}
+        <link rel="stylesheet" type="text/css" href="/static/css/uudisbox.css">
+        {% endcompress %}
+    </head>
+    <body id="NO_JS">
+		<div id="HEADER">
+			<span id="movingLogo">
+			<a href="/" class="full_link"></a>
+			</span>
+			<div id="HeaderRightMenu" class="menu">
+                <ul id="RightNav" class="clearfix">
+                    <li><a href=http://uudisreader2.herokuapp.com>Raadio</a></li>
+                    <li>{% if user.is_authenticated %}<a href="/logout/">Välju</a></li>
+                    {% else %}<li><a href="/login/">Sisene</a></li>
+                    <li><a href="/register/">Registreeru</a></li>{% endif %}
+                </ul>
+            </div>
+		</div>
+		<div id="WRAPPER">
+			<iframe src="{{ paper }}" id="IFRAME"></iframe>
+		</div>
+    </body>
+</html>

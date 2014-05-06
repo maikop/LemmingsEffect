@@ -1,7 +1,6 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
-from reader.models import Uudised
-from reader.models import Lehed, Lehtuudis
+from reader.models import Uudised, Lehed, Lehtuudis
 from django.template import Context, loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import math
@@ -57,15 +56,19 @@ def index(request):
     if paper == "All" and category=="All":
         queryset=Lehtuudis.objects.all().order_by(page_order)[chunk_start:chunk_stop]
         chunk_max = Uudised.objects.count()
+        sulud = True
     elif paper == "All":
         queryset=Lehtuudis.objects.all().filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
         chunk_max = Uudised.objects.filter(kategooria=category).count()
+        sulud = True
     elif category == "All":
         queryset=Uudised.objects.all().filter(leht=paper).order_by(page_order)[chunk_start:chunk_stop]
         chunk_max = Uudised.objects.filter(leht=paper).count()
+        sulud = False
     else:
         queryset=Uudised.objects.all().filter(leht=paper).filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
         chunk_max = Uudised.objects.filter(leht=paper).filter(kategooria=category).count()
+        sulud = False
     
     #Viimane lehekülg
     max_pages = math.ceil(chunk_max / per_page)
@@ -84,7 +87,7 @@ def index(request):
     paginator._num_pages = max_pages
     page=paginator.page(fake_num)
     page.number = page_num
-    return render_to_response("reader.html", {'kategooriad':kategooriad, 'lehed':lehed, 'page':page, 'order':page_order, 'kategooria': category, 'tab': paper}, context_instance=RequestContext(request))
+    return render_to_response("reader.html", {'kategooriad':kategooriad, 'lehed':lehed, 'page':page, 'order':page_order, 'kategooria': category, 'sulud':sulud, 'tab': paper}, context_instance=RequestContext(request))
 
 
 def empty(request):
@@ -119,15 +122,19 @@ def empty(request):
     if paper == "All" and category=="All":
         queryset=Lehtuudis.objects.all().order_by(page_order)[chunk_start:chunk_stop]
         chunk_max = Uudised.objects.count()
+        sulud = True
     elif paper == "All":
         queryset=Lehtuudis.objects.all().filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
         chunk_max = Uudised.objects.filter(kategooria=category).count()
+        sulud = True
     elif category == "All":
         queryset=Uudised.objects.all().filter(leht=paper).order_by(page_order)[chunk_start:chunk_stop]
         chunk_max = Uudised.objects.filter(leht=paper).count()
+        sulud = False
     else:
         queryset=Uudised.objects.all().filter(leht=paper).filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
         chunk_max = Uudised.objects.filter(leht=paper).filter(kategooria=category).count()
+        sulud = False
     
     #Viimane lehekülg
     max_pages = math.ceil(chunk_max / per_page)
@@ -139,12 +146,14 @@ def empty(request):
         fake_num = 2
     elif page_num > max_pages:
         fake_num = 3  
+    
+    
     #Teeb ta 5-objektisteks juppideks
     paginator = Paginator(queryset, per_page)
     paginator._num_pages = max_pages
     page=paginator.page(fake_num)
     page.number = page_num
-    return render_to_response("empty.html", {'page':page}, context_instance=RequestContext(request))
+    return render_to_response("empty.html", {'kategooriad':kategooriad, 'lehed':lehed, 'page':page, 'order':page_order, 'kategooria': category, 'sulud':sulud, 'tab': paper}, context_instance=RequestContext(request))
 
 
 
@@ -213,3 +222,16 @@ def push(request):
 @cache_control(max_age=604801)
 def static(request, path):
         return serve(request, path[6:])
+
+
+def uudisbox(request):
+	paper = request.GET.get('a', '')
+	isurl = False
+	if paper[:7] == 'http://' or paper[:8] == 'https://':
+		isurl = True
+	if ((paper[:22] == 'http://uudised.err.ee/') or (paper[:19] == 'http://menu.err.ee/')):
+		paper = 'http://www.gmodules.com/ig/proxy?url='+str(paper)
+	if isurl == False:
+		return HttpResponseRedirect('/')
+	else:
+		return render_to_response("uudisbox.html", {'paper':paper}, context_instance=RequestContext(request))
