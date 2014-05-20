@@ -61,6 +61,29 @@ a.svg:after {
   left:0;
 }
 
+.alumine{
+	display:inline;
+}
+
+.vote {
+	float:right;
+	position:relative;
+	display:table;
+}
+.vote li{
+	display:table-cell;
+	position:relative;
+	height:40px;
+    min-width:40px;
+	vertical-align:middle;
+	text-align:center;
+	border: 2px solid #aaaaaa;
+}
+.vote a{
+	height:100%;
+	width:100%;
+}
+
 .menu {
     height: 40px;
     position: relative;

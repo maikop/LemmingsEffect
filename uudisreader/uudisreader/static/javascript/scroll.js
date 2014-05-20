@@ -26,9 +26,11 @@ $(window).scroll(function () {
         $('div#load').show();
         $.ajax({
             url: "empty/?tab=" + tab + '&kateg=' + kateg + '&page=' + page + '&order=' + order,
-            success: function (html) {
-                if (html.length > 5) {
-                    $("#Headlines").append(html);
+            dataType: 'xml',
+            success: function (xml) {
+                var parseXML = ($(xml).text()).replace("<![CDATA[", "").replace("]]>", "");
+                if (parseXML.length > 5) {
+                    $("#Headlines").append(parseXML);
                     $('div#load').hide();
                     page = page + 1;
                     loadLock = false;

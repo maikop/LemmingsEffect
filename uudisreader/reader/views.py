@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from reader.models import Uudised, Lehed, Lehtuudis
 from django.template import Context, loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.decorators.csrf import csrf_exempt
 import math
 
 from django.http import HttpResponseRedirect
@@ -62,11 +63,11 @@ def index(request):
         chunk_max = Uudised.objects.filter(kategooria=category).count()
         sulud = True
     elif category == "All":
-        queryset=Uudised.objects.all().filter(leht=paper).order_by(page_order)[chunk_start:chunk_stop]
+        queryset=Lehtuudis.objects.all().filter(leht=paper).order_by(page_order)[chunk_start:chunk_stop]
         chunk_max = Uudised.objects.filter(leht=paper).count()
         sulud = False
     else:
-        queryset=Uudised.objects.all().filter(leht=paper).filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
+        queryset=Lehtuudis.objects.all().filter(leht=paper).filter(kategooria=category).order_by(page_order)[chunk_start:chunk_stop]
         chunk_max = Uudised.objects.filter(leht=paper).filter(kategooria=category).count()
         sulud = False
     
@@ -153,7 +154,7 @@ def empty(request):
     paginator._num_pages = max_pages
     page=paginator.page(fake_num)
     page.number = page_num
-    return render_to_response("empty.html", {'kategooriad':kategooriad, 'lehed':lehed, 'page':page, 'order':page_order, 'kategooria': category, 'sulud':sulud, 'tab': paper}, context_instance=RequestContext(request))
+    return render_to_response("empty2.html", {'kategooriad':kategooriad, 'lehed':lehed, 'page':page, 'order':page_order, 'kategooria': category, 'sulud':sulud, 'tab': paper}, context_instance=RequestContext(request), mimetype='application/xml')
 
 
 
@@ -223,9 +224,9 @@ def push(request):
 def static(request, path):
         return serve(request, path[6:])
 
-
-def uudisbox(request):
-	paper = request.GET.get('a', '')
+@csrf_exempt
+def uudisbox(request, object_id):
+	paper=Lehtuudis.objects.filter(id=object_id).values("link")[0].get('link')
 	isurl = False
 	if paper[:7] == 'http://' or paper[:8] == 'https://':
 		isurl = True

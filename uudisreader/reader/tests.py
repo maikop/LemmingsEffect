@@ -8,19 +8,19 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 import unittest, time, re
 
-##class Tests(TestCase):
-##    def test_index(self):
-##        #resp = self.client.get('/login/')
-##        self.assertEqual(200, 200)
-##
-##    def test_lehed(self):
-##        Lehed.objects.create(name = 'Maaleht', address = 'www.maaleht.com')
-##        leht = Lehed.objects.get(address = 'www.maaleht.com')
-##        self.assertEqual(Lehed.objects.get(name = 'Maaleht'), leht)
-##
-##    def test_a(self):
-##        client = Client()
-##        response = client.get('/')
+class Tests(TestCase):
+    def test_index(self):
+        #resp = self.client.get('/login/')
+        self.assertEqual(200, 200)
+
+    def test_lehed(self):
+        Lehed.objects.create(name = 'Maaleht', address = 'www.maaleht.com')
+        leht = Lehed.objects.get(address = 'www.maaleht.com')
+        self.assertEqual(Lehed.objects.get(name = 'Maaleht'), leht)
+
+    def test_a(self):
+        client = Client()
+        response = client.get('/')
                 
 
 

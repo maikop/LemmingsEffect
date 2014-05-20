@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>H&auml;&auml;letus</title>
+    <meta content="">
+    <style></style>
+  </head>
+  <body>
+  {{ lehtuudis }} <br>
+  {% load voting_tags %}
+  {% vote_by_user user on lehtuudis as vote %}
+  {% score_for_object lehtuudis as score %}
+  H&auml;&auml;letatud on {{ score.num_votes }} <br>
+  Punkte on {{ score.score }} <br>
+  Hetkel on teie h&auml;&auml;l {% if vote and vote.is_upvote %}+1{% elif vote and vote.is_downvote %}-1{% else %}0{% endif %}<BR>
+  Kinnitage oma h&auml;&auml;letus: <BR>
+  {{lehtuudis.id}}
+       <form class="linkvote" id="linkup{{ lehtuudis.id }}" action="/{{ lehtuudis.id }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/" method="POST">{% csrf_token %}
+        <input type="submit" id="linkuparrow{{ lehtuudis.id }}" value="{% if vote and vote.is_upvote %}0{% else %}+1{% endif %}">
+      </form>
+
+      <form class="linkvote" id="linkdown{{ lehtuudis.id }}" action="/{{ lehtuudis.id }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/" method="POST">{% csrf_token %}
+        <input type="submit" id="linkdownarrow{{ lehtuudis.id }}" value="{% if vote and vote.is_downvote %}0{% else %}-1{% endif %}">
+      </form>
+  </body>
+</html>

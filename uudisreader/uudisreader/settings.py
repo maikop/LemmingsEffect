@@ -68,6 +68,7 @@ INSTALLED_APPS = (
 	'reader',
     'djcelery',
     'kasutaja',
+    'voting',
     "compressor",
     'allauth',
     'allauth.account',
@@ -77,6 +78,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

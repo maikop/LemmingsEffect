@@ -108,4 +108,4 @@ def UpdateRSSFeeds():
 				cursor.execute("INSERT INTO reader_uudised (title, description, link, published, kategooria, leht, nuditud) VALUES (%s, %s, %s, %s,  %s, %s, %s)", (qrem(title), qrem(description), qrem(link), dateconvert(published), qrem(kategooria), qrem(leht), qrem(nuditud)))
 			db.commit()
 	
-UpdateRSSFeeds()
+#UpdateRSSFeeds()

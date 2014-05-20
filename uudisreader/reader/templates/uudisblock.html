@@ -1,22 +1,37 @@
+{% load voting_tags %} 
 {% for uudised in page %}
 
-    <div class = "reader_body">
-    <div class = "uudised_meta">
-    </div>
-            <article>
-            <h3><a href="uudis/?a={{uudised.link}}">{{ uudised.title }}</a></h3>
-            <p><i>{{uudised.published |date:"l j E Y" |capfirst}} Kell {{uudised.published |date:"G:i"}}</i></p>
-
-            <p>{{ uudised.description |safe }}</p>
-			
+	<div class = "reader_body">
+	<div class = "uudised_meta">
+	</div>
+			<article>
+			<h3><a href="uudis/{{uudised.id}}/">{{ uudised.title }}</a></h3>
+			<p><i>{{uudised.published |date:"l j E Y" |capfirst}} Kell {{uudised.published |date:"G:i"}}</i></p>
+			<p>{{ uudised.description |safe }}</p>
+				
 			{% if sulud %}
-			<p>({{ uudised.name }})</p>
+			<p>({{ uudised.name |safe}})</p>
 			{% endif %}
+			{% if user.is_authenticated %}
+			<span class="alumine">
+			Otselink: <a href="{{ uudised.link }}">{{ uudised.link }}</a>
 			
-			{% if user.is_authenticated %} 
-			<p> Meldinutele salajane otselink: <a href="{{ uudised.link }}">{{ uudised.link }}</a></p>
+			{% score_for_object uudised as score %}
+			{% vote_by_user user on uudised as vote %}
+			<ul class="vote">
+				<li class="{{ uudised.id }}">{{ score.score }}</li>
+				<li class="menu"><a href="{{ uudised.id }}/upvote/" onclick="vote('{{ uudised.id }}', 'up'); return false;">&#x25B2;</a></li>
+				<li class="menu"><a href="{{ uudised.id }}/clearvote/" onclick="vote('{{ uudised.id }}', 'clear'); return false;">&mdash;</a></li>
+				<li class="menu"><a href="{{ uudised.id }}/downvote/" onclick="vote('{{ uudised.id }}', 'down'); return false;">&#x25BC;</a></li>
+			</ul>
+			</span>
+			{% else %}
+			{% score_for_object uudised as score %}
+			{% vote_by_user user on uudised as vote %}
+			<ul class="vote">
+				<li class="score">{{ score.score }}</li>
+			</ul>
 			{% endif %}
-			
-            </article>
-    </div>
+			</article>
+	</div>
 {% endfor  %}
